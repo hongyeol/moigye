@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View,Text,StyleSheet } from 'react-native';
-import { Container, Content, Tabs ,Card,CardItem,ListItem,Right,Button} from 'native-base';
+import { Container, Content, Tabs ,Card,CardItem,ListItem,Right,Button,List} from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import * as firebase from 'firebase';
 
@@ -9,38 +9,128 @@ export default class account extends Component {
   constructor(props){
     super(props);
         
-    this.State={
-      list: []
-    }
+    this.state={
+      grouplist: [],
+      check: false
+    };
+
+    this._renderRow = this._renderRow.bind(this);
+    this.header = this.header.bind(this);
 
   }
 
 
     async listenForItems() {
-
-        var uid = await firebase.auth().currentUser.uid;
-        var itemsRef = await firebase.database().ref().child('Register/'+uid+'/party')
-
+        var date = new Date().getFullYear() + "" + new Date().getMonth();
+        var itemsRef = await firebase.database().ref().child('Party/'+ this.props.value +'/accounting')
+        
         await itemsRef.on('value', (snap) => {
-
-        // get children as an array
+          
+        // get children as an array            
+            var year = [];
+            var month = [];
+            var day = [];
+            var list = [];
             var items = [];
-            snap.forEach((child) => {                
-                items.push({                
-                name: child.val(),
-                _key: child.key
+
+            snap.forEach((child) => {  
+
+              child.forEach((child2) =>{
+
+                child2.forEach((child3) => {
+
+                  child3.forEach((child4) => {
+
+                    child4.forEach((child5) => {
+                      
+                      if(!child5.hasChildren()){
+                      items.push({                
+                        name: child5.val(),
+                        _key: child5.key
+                      });
+                      }
+
+                    });
+                    list.push({                
+                      _key: child4.key,
+                      list: items
+                    });
+
+                  })
+                  day.push({
+                    _key: child3.key,
+                    list: list
+                  });
+                  
                 });
+                month.push({
+                  _key: child2.key,
+                  list: day
+                });
+                
+              });
+
+              year.push({
+                _key: child.key,
+                list: month
+              });
             });
-           
-        
             this.setState({
-                grouplist: items,
-                group: array,
-                loading: true,
-                evennumber: evennum
+                grouplist: year
             })
-        });
-        
+
+        }); 
+    }
+
+    _renderRow(data,sectionid,rowid,highlightrow){
+      return(
+                        
+            <List dataArray={data.list} renderRow={(data2,sectionid2,rowid2,highlightrow) => 
+              <View>
+                <ListItem itemDivider style={{flex: 1,justifyContent: 'center' ,alignItems: 'center'}}>
+                  <Text >{data._key}년{data2._key}월</Text>
+                </ListItem>
+                <ListItem>
+                <List dataArray={data2.list} renderRow={(data3,sectionid,rowid3,highlightrow) => 
+                    <ListItem style={styles.masterRow}>
+                      <Grid style={5}>
+                        <Row style={styles.masterRow}>
+                        <Col  size={10}>
+                          <Text>{data3._key}</Text>
+                        </Col>
+                        <Col  size={90}>
+                        <List dataArray={data3.list} renderRow={(data4,sectionid,rowid4,highlightrow) => 
+                        <Button style={styles.button}>
+                          <Row>
+                            <List dataArray={data4.list} renderRow={(data5,sectionid,rowid5,highlightrow) => 
+                            <Col>
+                              <Text>{data5.name}</Text>
+                            </Col>
+                             } />   
+                                                        
+                          </Row>
+                          </Button>   
+                          } />            
+                        </Col>
+                        </Row>
+                        </Grid>
+                      </ListItem>
+                } />
+                </ListItem>
+              </View>
+            } /> 
+                                                 
+      )
+    }
+
+    componentDidMount(){
+      this.listenForItems();
+    }
+
+    header(){
+      <ListItem itemDivider style={{flex: 1,justifyContent: 'center' ,alignItems: 'center'}}>
+            <Text >2017년 2월</Text>
+          </ListItem>
     }
 
      
@@ -48,92 +138,7 @@ export default class account extends Component {
         return (
         <Container style={styles.container}>
         <Content >
-          <ListItem itemDivider style={{flex: 1,justifyContent: 'center' ,alignItems: 'center'}}>
-            <Text >2017년 2월</Text>
-          </ListItem>
-          <ListItem style={styles.masterRow}>
-            <Grid style={5}>
-              <Row style={styles.masterRow}>
-              <Col  size={10}>
-                <Text>30</Text>
-              </Col>
-              <Col  size={90}>
-              <Button style={styles.button}>
-                <Row>
-                  <Col>
-                    <Text>2월 정기정모</Text>
-                  </Col>
-                  <Col>
-                    <Text>300000원</Text>
-                  </Col>                              
-                </Row>
-                </Button>
-                <Button style={styles.button}>
-                <Row style={styles.border}>
-                  <Col>
-                    <Text>족발벙</Text>
-                  </Col>
-                  <Col>
-                    <Text>300000원</Text>
-                  </Col>                              
-                </Row>
-                </Button>
-                <Button style={styles.button}>
-                <Row style={styles.border}>
-                  <Col>
-                    <Text>영화벙</Text>
-                  </Col>
-                  <Col>
-                    <Text>300000원</Text>
-                  </Col>                              
-                </Row>
-                </Button>
-              </Col>
-              </Row>
-              </Grid>
-             </ListItem>
-             <ListItem itemDivider>
-            <Text>2017년 2월</Text>
-          </ListItem> 
-          <ListItem>
-            <Grid>
-              <Row style={styles.border}>
-              <Col style={styles.border} size={10}>
-                <Text>30</Text>
-              </Col>
-              <Col style={styles.border} size={90}>
-              <Button style={{backgroundColor:'#EAEAEA' ,width:305}}>
-                <Row style={styles.border}>
-                  <Col>
-                    <Text>2월 정기정모</Text>
-                  </Col>
-                  <Col>
-                    <Text>300000원</Text>
-                  </Col>                              
-                </Row>
-                </Button>
-              </Col>
-              </Row>      
-              <Row style={styles.border}>
-              <Col style={styles.border} size={1}>
-                <Text>30</Text>
-              </Col>
-              <Col style={styles.border} size={5}>
-                <Row style={styles.border}>
-                  <Col>
-                    <Text>2월 정기정모</Text>
-                  </Col>
-                  <Col>
-                    <Text>300000원</Text>
-                  </Col>                              
-                </Row>
-                <Row style={styles.border}>
-                  <Text>456</Text>
-                </Row>
-              </Col>
-              </Row>      
-            </Grid>
-        </ListItem>            
+            <List dataArray={this.state.grouplist} renderRow={this._renderRow}/>
         </Content>
       </Container>
         );

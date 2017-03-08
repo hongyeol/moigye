@@ -53,6 +53,7 @@ export default class CreateParty extends Component {
                 
                 var updates = {};
                 updates['/Party/' + newPostKey + '/member/' + uid] = UserName;
+                updates['/Party/'+ newPostKey] = this.state.PartyName;
                 updates['/Register/' + uid + '/party/' + newPostKey] = this.state.PartyName;
                 //updates['/Party/' + this.state.PartyName + '/' + newPostKey] = this.state.PartyName;
 

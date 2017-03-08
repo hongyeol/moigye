@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View,Text,ListView} from 'react-native';
+import {View,Text,ListView,StyleSheet} from 'react-native';
 import { Container, Content,ListItem,CheckBox, List,Header,Button,Icon,Title} from 'native-base';
 import * as firebase from 'firebase';
 
@@ -12,7 +12,8 @@ export default class detail_write extends Component {
         
         this.state={
             dataSource: [],
-            check: []               
+            check: [],
+            disble: false
         };
         
         this._returnPop = this._returnPop.bind(this);
@@ -52,37 +53,34 @@ export default class detail_write extends Component {
 
     async updateWrite(){
         try {
-            this.setState({disable: true})
-            var uid = await firebase.auth().currentUser.uid;
-            var UserName = "";
-            await firebase.database().ref().child('Register/'+ uid).on('value', (snap) => {
-                UserName = snap.val().Name;
+            this.setState({disable: true});
+
+            var year = new Date().getFullYear();
+            var month = new Date().getMonth();
+            var day = new Date().getDate();
+            var url = 'Party/'+ this.props.route.index + '/accounting/' + year  + "/" + month + "/" + day;
+            var newPostKey = await firebase.database().ref().child(url).push().key;          
+
+            await firebase.database().ref(url + "/" + newPostKey ).set({
+                title: 'TEST영수증',
+                price: 30000
             });
+
             
+            var memberlist = {};
+            this.state.dataSource.map((index, value) => {
+                if(this.state.check[value]){
+                    memberlist[url + "/" + newPostKey + "/member/" + this.state.dataSource[value]._key] = this.state.dataSource[value].name;
+                }
+                
+            });
+            await firebase.database().ref().update(memberlist);
             
-                var newPostKey = await firebase.database().ref().child('Party').push().key;          
-                
-                await firebase.database().ref("Party/"+ newPostKey ).set({
-                    PartyName: this.state.PartyName , 
-                    PartyType: this.state.PartyType, 
-                    PartyComment: this.state.PartyComment, 
-                    BankPerson: this.state.BankPerson, 
-                    BankNm: this.state.BankNm,
-                    RegularPay: this.state.RegularPay,
-                    ResidualPay: this.state.ResidualPay
-                })
-
-                
-                var updates = {};
-                updates['/Party/' + newPostKey + '/member/' + uid] = UserName;
-                updates['/Register/' + uid + '/party/' + newPostKey] = this.state.PartyName;
-                //updates['/Party/' + this.state.PartyName + '/' + newPostKey] = this.state.PartyName;
-
-                await firebase.database().ref().update(updates);
-
-                this._returnPop();                
-         
-
+            if(!alert("저장이 완료됐습니다")){
+                this._returnPop();
+            }          
+        
+            
         }catch(error){
             alert(error);
         }  
@@ -125,8 +123,22 @@ render(){
                         </ListItem>                       
                        
                     } />
+                    <Button block disabled={this.state.disable} style={styles.button} onPress={this.updateWrite.bind(this)}>정산 완료</Button>
                 </Content>
             </Container>
     );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1        ,
+        justifyContent: 'center'        
+    },
+    button:{
+         flex: 1   ,
+        backgroundColor: '#FF0000',
+        borderColor: '#FFFFFF',        
+        justifyContent: 'center'       
+    }
+})
