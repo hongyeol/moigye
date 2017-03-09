@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "866522507212",
+    "firebase_url": "https://moigye-f893e.firebaseio.com",
+    "project_id": "moigye-f893e",
+    "storage_bucket": "moigye-f893e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866522507212:android:474ec21125d4a981",
+        "android_client_info": {
+          "package_name": "com.moigye"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866522507212-m9poljjusmaudq3vofh44gk3nfinddea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0_T2M3ufC-NugRaAZy4xokdGh_N-NJ3g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
