@@ -50,6 +50,8 @@
 		993A0F77D0A5492AAF2EF13A /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A13EB133D4D443FB9027104A /* libRNFetchBlob.a */; };
 		A393746E8A8A44F0B593FC01 /* libRCTFBLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B13F1761589476D8E935982 /* libRCTFBLogin.a */; };
 		B920FC0ADA46478D87D52093 /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 959279A7069440C2ABEE5E94 /* libRNFIRMessaging.a */; };
+		75F9ABD2A8594CB791760CF2 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EF1A2EDB64A4FF79B3CF798 /* libCodePush.a */; };
+		EE9DB52C9B944F03B7ECCB44 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4703EAB99E8E4FCA89C4B2AF /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -292,6 +294,9 @@
 		2B13F1761589476D8E935982 /* libRCTFBLogin.a */ = {isa = PBXFileReference; name = "libRCTFBLogin.a"; path = "libRCTFBLogin.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		29CD42F8BB7F48F8A491A346 /* RNFIRMessaging.xcodeproj */ = {isa = PBXFileReference; name = "RNFIRMessaging.xcodeproj"; path = "../node_modules/react-native-fcm/ios/RNFIRMessaging.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		959279A7069440C2ABEE5E94 /* libRNFIRMessaging.a */ = {isa = PBXFileReference; name = "libRNFIRMessaging.a"; path = "libRNFIRMessaging.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		09A0EAC7F8054F009ACB4432 /* CodePush.xcodeproj */ = {isa = PBXFileReference; name = "CodePush.xcodeproj"; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		1EF1A2EDB64A4FF79B3CF798 /* libCodePush.a */ = {isa = PBXFileReference; name = "libCodePush.a"; path = "libCodePush.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		4703EAB99E8E4FCA89C4B2AF /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,6 +328,8 @@
 				993A0F77D0A5492AAF2EF13A /* libRNFetchBlob.a in Frameworks */,
 				A393746E8A8A44F0B593FC01 /* libRCTFBLogin.a in Frameworks */,
 				B920FC0ADA46478D87D52093 /* libRNFIRMessaging.a in Frameworks */,
+				75F9ABD2A8594CB791760CF2 /* libCodePush.a in Frameworks */,
+				EE9DB52C9B944F03B7ECCB44 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,6 +479,7 @@
 				02ACA737BFD145FBAE4F883B /* RNFetchBlob.xcodeproj */,
 				87AE8A6F392F42D0895B8DBD /* RCTFBLogin.xcodeproj */,
 				29CD42F8BB7F48F8A491A346 /* RNFIRMessaging.xcodeproj */,
+				09A0EAC7F8054F009ACB4432 /* CodePush.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -493,6 +501,7 @@
 				00E356EF1AD99517003FC87E /* moigyeTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				93ABF6495A71466081A62114 /* Resources */,
+				A9D041D8C59041989E2D15D4 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -534,6 +543,15 @@
 				740F7CD8153B4C5682FCD602 /* Times New Roman.ttf */,
 			);
 			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
+		A9D041D8C59041989E2D15D4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4703EAB99E8E4FCA89C4B2AF /* libz.tbd */,
+			);
+			name = Frameworks;
 			path = "";
 			sourceTree = "<group>";
 		};
@@ -953,6 +971,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -969,6 +988,7 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/moigye.app/moigye";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

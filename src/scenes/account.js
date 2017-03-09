@@ -30,8 +30,6 @@ export default class account extends Component {
             var year = [];
             var month = [];
             var day = [];
-            
-            
 
             snap.forEach((child) => {  
 
