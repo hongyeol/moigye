@@ -12,6 +12,7 @@ import CreateParty from './CreateParty';
 import Introduce from './Introduce';
 import LodingPage from './LodingPage';
 import DetailWrite from './detail_write';
+import Member from './Member';
 
 import myTheme from '../themes/light';
 
@@ -38,7 +39,8 @@ var ROUTES = {
   createparty: CreateParty,
   introduce: Introduce,
   lodingpage: LodingPage,
-  detailwrite: DetailWrite
+  detailwrite: DetailWrite,
+  member: Member
 };
 
 

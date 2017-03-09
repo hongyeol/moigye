@@ -22,7 +22,7 @@ export default class account extends Component {
 
     async listenForItems() {
         var date = new Date().getFullYear() + "" + new Date().getMonth();
-        var itemsRef = await firebase.database().ref().child('Party/'+ this.props.value +'/accounting')
+        var itemsRef = await firebase.database().ref().child('Party/'+ this.props.value +'/accounting');
         
         await itemsRef.on('value', (snap) => {
           
@@ -30,17 +30,17 @@ export default class account extends Component {
             var year = [];
             var month = [];
             var day = [];
-            var list = [];
-            var items = [];
+            
+            
 
             snap.forEach((child) => {  
 
               child.forEach((child2) =>{
 
                 child2.forEach((child3) => {
-
+                  var list = [];
                   child3.forEach((child4) => {
-
+                    var items = [];
                     child4.forEach((child5) => {
                       
                       if(!child5.hasChildren()){
@@ -55,6 +55,7 @@ export default class account extends Component {
                       _key: child4.key,
                       list: items
                     });
+                    
 
                   })
                   day.push({
@@ -92,9 +93,9 @@ export default class account extends Component {
                 </ListItem>
                 <ListItem>
                 <List dataArray={data2.list} renderRow={(data3,sectionid,rowid3,highlightrow) => 
-                    <ListItem style={styles.masterRow}>
+                    <ListItem>
                       <Grid style={5}>
-                        <Row style={styles.masterRow}>
+                        <Row>
                         <Col  size={10}>
                           <Text>{data3._key}</Text>
                         </Col>
@@ -159,6 +160,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor:'#EAEAEA' ,
     width:305,
+    height:50,
     marginBottom: 1
   },
 

@@ -66,7 +66,7 @@ export default class index extends Component {
         }
     }
 
-    _detail(value){
+    _detail(value){        
         this.props.navigator.push({name: 'detail' , index: value});
     }
 
@@ -164,14 +164,14 @@ export default class index extends Component {
         return(
             <Row key={number}>
                 <Col style={{ borderStyle: 'solid', height:150 ,justifyContent: 'center', alignItems: 'center'}} key={this.state.grouplist[number * 2]._key} >
-                            <TouchableHighlight onPress={(key) => this._detail(this.state.grouplist[number * 2]._key)}  ><Image
+                            <TouchableHighlight onPress={() => this._detail(this.state.grouplist[number * 2])}  ><Image
                         style={{width: 110, height: 110}}
                         source={require('../images/groupIcon.jpg')}                                    
                         /></TouchableHighlight>                                 
                             <Text>{this.state.grouplist[number * 2].name}</Text>                                    
                 </Col>
                 <Col style={{ borderStyle: 'solid', height:150 ,justifyContent: 'center', alignItems: 'center'}} key={this.state.grouplist[(number*2) + 1]._key} >
-                           <TouchableHighlight onPress={(key) => this._detail(this.state.grouplist[(number * 2) + 1]._key)} ><Image
+                           <TouchableHighlight onPress={() => this._detail(this.state.grouplist[(number * 2) + 1])} ><Image
                         style={{width: 110, height: 110}}
                         source={require('../images/groupIcon.jpg')}                                    
                         /></TouchableHighlight>                                  
@@ -219,7 +219,7 @@ export default class index extends Component {
          <Drawer
                 
                 ref={(ref) => { this._drawer = ref }}
-                content={<SideBar navigator={this._navigator} />}
+                content={<SideBar navigator={this._navigator} name={firebase.auth().currentUser.displayName} />}
                 onClose={() => this.closeDrawer}
                 type="overlay"
                 tapToClose={true}

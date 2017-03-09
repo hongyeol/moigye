@@ -18,8 +18,8 @@ window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
 window.Blob = Blob
 
 export default class detail extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         
         this.state = {
             active: false,
@@ -35,6 +35,7 @@ export default class detail extends Component {
         this._returnPop = this._returnPop.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
         this.detail_write = this.detail_write.bind(this);
+        this.member = this.member.bind(this);
 
         
     }
@@ -44,7 +45,11 @@ export default class detail extends Component {
     }
 
     detail_write(){
-      this.props.navigator.push({name: 'detailwrite' ,index: this.props.route.index});
+      this.props.navigator.push({name: 'detailwrite' ,index: this.props.route.index._key});
+    }
+
+    member(){
+      this.props.navigator.push({name: 'member' ,index: this.props.route.index._key});
     }
 
     _iconSet(){
@@ -176,9 +181,9 @@ uploadImage(uri, imageName, mime = 'image/jpg'){
                         <Icon name='ios-arrow-back' />
                     </Button>
                     
-                    <Title>GROUP1</Title>
+                    <Title>{this.props.route.index.name}</Title>
                     
-                    <Button transparent>
+                    <Button transparent onPress={this.member}>
                         <Icon name='md-people' />
                     </Button>                    
                     <Button transparent>
@@ -187,7 +192,7 @@ uploadImage(uri, imageName, mime = 'image/jpg'){
                 </Header>
                 <Content>                
                     <Tabs>
-                        <Account tabLabel='정산' value={this.props.route.index} />
+                        <Account tabLabel='정산' value={this.props.route.index._key} />
                         <Ledger tabLabel='장부' />
                         <Schedule tabLabel='일정' />
                     </Tabs>
@@ -200,7 +205,7 @@ uploadImage(uri, imageName, mime = 'image/jpg'){
                         position="bottomRight"
                         onPress={this._iconSet}>
                         <Icon name={this.state.icon} />
-                        <Button style={{ backgroundColor: '#FFFFFF' }} onPress={this.detail_write}>
+                        <Button style={{ backgroundColor: '#FFFFFF' }} onPress={this.selectPhotoTapped.bind(this)}>
                             <Icon name="md-camera" style={{color: '#191919'}} />
                         </Button>
                         <Button style={{ backgroundColor: '#FFFFFF' }} onPress={this.detail_write}>                            

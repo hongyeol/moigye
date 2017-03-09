@@ -8,15 +8,23 @@ import Drawer from 'react-native-drawer';
 
 
 export default class sidebar extends Component {
+  constructor(props){
+    super(props);
+    
+  }
+
+  logout(){
+    
+  }
   
     render() {
         return (
           <Container theme={myTheme}>   
              <Header>                                    
-                    <Title>admin1님</Title>
+                    <Title>{this.props.name}</Title>
                 </Header>
                 <Content style={styles.container}>
-                  <Text>hi</Text>
+                  <Button onPress={this.logout.bind(this)}>로그아웃</Button>
                 </Content>
           </Container>
         );
