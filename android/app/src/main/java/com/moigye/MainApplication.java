@@ -4,8 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
-import com.microsoft.codepush.react.CodePush;
-import com.microsoft.codepush.react.ReactInstanceHolder;
+//import com.microsoft.codepush.react.CodePush;
+//import com.microsoft.codepush.react.ReactInstanceHolder;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.magus.fblogin.FacebookLoginPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -20,19 +20,19 @@ import com.imagepicker.ImagePickerPackage;
 
 import java.util.Arrays;
 import java.util.List;
-
+/*
 public class MyReactNativeHost extends ReactNativeHost implements ReactInstanceHolder {
   // ... usual overrides
-}
+}*/
 
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-
+/*
     @Override
     protected String getJSBundleFile() {
       return CodePush.getJSBundleFile();
-    }
+    }*/
     
 
     @Override
@@ -44,7 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new CodePush("123456", getApplicationContext(), BuildConfig.DEBUG),
+            //new CodePush("123456", getApplicationContext(), BuildConfig.DEBUG),
             new FIRMessagingPackage(),
             new FacebookLoginPackage(),
             new RNFetchBlobPackage(),
@@ -61,7 +61,7 @@ public class MainApplication extends Application implements ReactApplication {
 
   @Override
   public void onCreate() {
-    CodePush.setReactInstanceHolder(mReactNativeHost);
+    //CodePush.setReactInstanceHolder(mReactNativeHost);
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
   }

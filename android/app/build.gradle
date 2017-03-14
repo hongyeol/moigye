@@ -67,7 +67,6 @@ import com.android.build.OutputFile
  */
 
 apply from: "../../node_modules/react-native/react.gradle"
-apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -138,7 +137,7 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-code-push')
+    //compile project(':react-native-code-push')
     compile project(':react-native-fcm')
     compile 'com.google.firebase:firebase-core:10.0.1' //this decides your firebase SDK version
     compile project(':react-native-facebook-login')
