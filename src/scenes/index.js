@@ -197,9 +197,11 @@ export default class index extends Component {
     componentDidMount() {        
         this.listenForItems(this.state.itemsRef);
         BackAndroid.addEventListener('hardwareBackPress', () => {
-
+            var list =[];
+            list = this.props.navigator.getCurrentRoutes();
             if(!this.props.navigator.pop()){
-                alert(this.props.route.name);
+                if(list.length == 1)
+                    return false;                    
             }
             return true;
     });
