@@ -24,6 +24,7 @@ export default class detail extends Component {
         this.state = {
             active: false,
             icon: 'md-add',
+            imageUrl: '',
             dataSource: new ListView.DataSource({
             rowHasChanged: (row1, row2) => row1 !== row2,
       }),
@@ -44,8 +45,8 @@ export default class detail extends Component {
         this.props.navigator.pop();
     }
 
-    detail_write(){
-      this.props.navigator.push({name: 'detailwrite' ,index: this.props.route.index._key});
+    detail_write(values){
+      this.props.navigator.push({name: 'detailwrite' ,index: this.props.route.index._key, value: values});
     }
 
     member(){
@@ -105,12 +106,12 @@ export default class detail extends Component {
         }
 
         this.uploadImage(response.uri,response.fileName);
-        
+        //alert(source)
         this.setState({
           avatarSource: source
         });
 
-        this.detail_write();
+        this.detail_write(response.fileName);
         
       }
     });
@@ -192,7 +193,7 @@ uploadImage(uri, imageName, mime = 'image/jpg'){
                 </Header>
                 <Content>                
                     <Tabs>
-                        <Account tabLabel='정산' value={this.props.route.index._key} />
+                        <Account tabLabel='정산' value={this.props.route.index._key} navigator={this.props.navigator}/>
                         <Ledger tabLabel='장부' />
                         <Schedule tabLabel='일정' />
                     </Tabs>

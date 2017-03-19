@@ -5,16 +5,17 @@ import { Container, Content, Tabs, Header, Title, Button, Icon,Fab} from 'native
 import myTheme from '../themes/light';
 
 import Drawer from 'react-native-drawer';
-
+import * as firebase from 'firebase';
 
 export default class sidebar extends Component {
   constructor(props){
     super(props);
-    
+    this.logout = this.logout.bind(this);
   }
 
   logout(){
-    
+    firebase.auth().signOut();
+    this.props.navigator.resetTo({name: "login"})    
   }
   
     render() {
@@ -24,7 +25,7 @@ export default class sidebar extends Component {
                     <Title>{this.props.name}</Title>
                 </Header>
                 <Content style={styles.container}>
-                  <Button onPress={this.logout.bind(this)}>로그아웃</Button>
+                  <Button onPress={this.logout}>로그아웃</Button>
                 </Content>
           </Container>
         );

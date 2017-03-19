@@ -13,6 +13,8 @@ import Introduce from './Introduce';
 import LodingPage from './LodingPage';
 import DetailWrite from './detail_write';
 import Member from './Member';
+import Account_detail from './account_detail';
+import Account_detail_img from './account_detail_img';
 
 import myTheme from '../themes/light';
 
@@ -40,7 +42,9 @@ var ROUTES = {
   introduce: Introduce,
   lodingpage: LodingPage,
   detailwrite: DetailWrite,
-  member: Member
+  member: Member,
+  account_detail: Account_detail,
+  account_detail_img: Account_detail_img
 };
 
 
@@ -59,6 +63,7 @@ export default class Main extends Component{
     componentDidMount() {
         FCM.getFCMToken().then(token => {
             console.log(token)
+            
             // store fcm token in your server
         });
         
@@ -94,6 +99,7 @@ export default class Main extends Component{
         });
         this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, (token) => {
             console.log(token)
+            
             // fcm token may not be available on first load, catch it here
         });
     }
@@ -129,7 +135,7 @@ export default class Main extends Component{
             tag: 'some_tag',                                    // Android only
             group: "group",                                     // Android only
             my_custom_data:'my_custom_field_value',             // extra data you want to throw
-            lights: true,                                       // Android only, LED blinking (default false)
+            lights: false,                                       // Android only, LED blinking (default false)
             show_in_foreground: true                                  // notification when app is in foreground (local & remote)
         });
 

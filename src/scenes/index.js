@@ -3,7 +3,7 @@ import { View , TextInput, StyleSheet,Image ,BackAndroid,   Platform, Dimensions
 import { Container, Content, Tabs, Header, Title, Button, Icon,Fab, Drawer,Text} from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { SideMenu, List, ListItem } from 'react-native-elements';
-
+import FCM, {FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType} from 'react-native-fcm';
 
 import myTheme from '../themes/light';
 
@@ -35,7 +35,8 @@ export default class index extends Component {
             grouplist: [],
             group: [],
             loading: false,
-            evennumber: false            
+            evennumber: false,
+            displayName: firebase.auth().currentUser.displayName            
         }
         
         this._iconSet = this._iconSet.bind(this);
@@ -142,7 +143,7 @@ export default class index extends Component {
         return(  
             <Row key={number}>       
                 <Col style={{ borderStyle: 'solid', height:150 ,justifyContent: 'center', alignItems: 'center'}} key={this.state.grouplist[number * 2]._key} >
-                             <TouchableHighlight onPress={this._detail}><Image
+                             <TouchableHighlight onPress={() => this._detail(this.state.grouplist[number * 2])}><Image
                         style={{width: 110, height: 110}}
                         source={require('../images/groupIcon.jpg')}                                    
                         /></TouchableHighlight>                                  
@@ -205,7 +206,103 @@ export default class index extends Component {
             }
             return true;
     });
+
+        FCM.getFCMToken().then(token => {
+            console.log(token)
+            alert(token)
+            // store fcm token in your server
+        });
+        
+        this.notificationListener = FCM.on(FCMEvent.Notification, async (notif) => {
+            // there are two parts of notif. notif.notification contains the notification payload, notif.data contains data payload
+            if(notif.local_notification){
+                alert("local");
+              //this is a local notification
+            }
+            if(notif.opened_from_tray){
+                alert("open");
+              //app is open/resumed because user clicked banner
+            }
+            //await someAsyncCall();
+
+            if(Platform.OS ==='ios'){
+              //optional
+              //iOS requires developers to call completionHandler to end notification process. If you do not call it your background remote notifications could be throttled, to read more about it see the above documentation link. 
+              //This library handles it for you automatically with default behavior (for remote notification, finish with NoData; for WillPresent, finish depend on "show_in_foreground"). However if you want to return different result, follow the following code to override
+              //notif._notificationType is available for iOS platfrom
+              switch(notif._notificationType){
+                case NotificationType.Remote:
+                  notif.finish(RemoteNotificationResult.NewData) //other types available: RemoteNotificationResult.NewData, RemoteNotificationResult.ResultFailed
+                  break;
+                case NotificationType.NotificationResponse:
+                  notif.finish();
+                  break;
+                case NotificationType.WillPresent:
+                  notif.finish(WillPresentNotificationResult.All) //other types available: WillPresentNotificationResult.None
+                  break;
+              }
+            }
+        });
+        this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, (token) => {
+            console.log(token)
+            
+            // fcm token may not be available on first load, catch it here
+        });
+    
   }
+      otherMethods(){
+
+        FCM.subscribeToTopic('/topics/moigye');
+        
+        FCM.getInitialNotification().then(notif=>console.log(notif));
+        FCM.presentLocalNotification({
+            id: "UNIQ_ID_STRING",                               // (optional for instant notification)
+            title: "My Notification Title",                     // as FCM payload
+            body: "My Notification Message",                    // as FCM payload (required)
+            sound: "default",                                   // as FCM payload
+            priority: "high",                                   // as FCM payload
+            click_action: "ACTION",                             // as FCM payload
+            badge: 10,                                          // as FCM payload IOS only, set 0 to clear badges
+            number: 10,                                         // Android only
+            ticker: "My Notification Ticker",                   // Android only
+            auto_cancel: true,                                  // Android only (default true)
+            large_icon: "ic_launcher",                           // Android only
+            icon: "ic_launcher",                                // as FCM payload, you can relace this with custom icon you put in mipmap
+            big_text: "Show when notification is expanded",     // Android only
+            sub_text: "This is a subText",                      // Android only
+            color: "red",                                       // Android only
+            vibrate: 300,                                       // Android only default: 300, no vibration if you pass null
+            tag: 'some_tag',                                    // Android only
+            group: "group",                                     // Android only
+            my_custom_data:'my_custom_field_value',             // extra data you want to throw
+            lights: false,                                       // Android only, LED blinking (default false)
+            show_in_foreground: true                                  // notification when app is in foreground (local & remote)
+        });
+
+        FCM.scheduleLocalNotification({
+            fire_date: new Date().getTime(),      //RN's converter is used, accept epoch time and whatever that converter supports
+            id: "UNIQ_ID_STRING",    //REQUIRED! this is what you use to lookup and delete notification. In android notification with same ID will override each other
+            body: "from future past",
+            repeat_interval: "week" //day, hour
+        })
+
+        FCM.getScheduledLocalNotifications().then(notif=>console.log(notif));
+
+        //these clears notification from notification center/tray
+        FCM.removeAllDeliveredNotifications()
+        FCM.removeDeliveredNotification("UNIQ_ID_STRING")
+
+        //these removes future local notifications
+        FCM.cancelAllLocalNotifications()
+        FCM.cancelLocalNotification("UNIQ_ID_STRING")
+
+        FCM.setBadgeNumber(1);                                       // iOS only and there's no way to set it in Android, yet.
+        FCM.getBadgeNumber().then(number=>console.log(number));     // iOS only and there's no way to get it in Android, yet.
+        FCM.send('866522507212', {
+          my_custom_data_1: 'my_custom_field_value_1',
+          my_custom_data_2: 'my_custom_field_value_2'
+        });
+    }
 
 
      closeDrawer = () => {
@@ -218,10 +315,9 @@ export default class index extends Component {
     render() {
        
           return (                      
-         <Drawer
-                
+         <Drawer                
                 ref={(ref) => { this._drawer = ref }}
-                content={<SideBar navigator={this._navigator} name={firebase.auth().currentUser.displayName} />}
+                content={<SideBar navigator={this.props.navigator} name={this.state.displayName} />}
                 onClose={() => this.closeDrawer}
                 type="overlay"
                 tapToClose={true}
@@ -235,6 +331,7 @@ export default class index extends Component {
                 drawer: {shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
                 
                 }}
+                
             >
             <Container theme={myTheme}>                                        
                 <Header>                  

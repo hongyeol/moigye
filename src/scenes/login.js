@@ -125,6 +125,7 @@ export default class index extends Component {
                     console.log("Logged in!");
                     console.log(data);
                     _this.setState({ user : data.credentials });
+                    
 
                     const provider = firebase.auth.FacebookAuthProvider;                    
                     const credential = provider.credential(data.credentials.token);
@@ -147,7 +148,8 @@ export default class index extends Component {
                     const provider = firebase.auth.FacebookAuthProvider;                    
                     const credential = provider.credential(data.credentials.token);
                     firebase.auth().signInWithCredential(credential);                                                                                
-                              _this.facebooklogin();
+                    alert(credential)
+                              //_this.facebooklogin();
                     }}
                     onLoginNotFound={function(){
                     console.log("No user logged in.");

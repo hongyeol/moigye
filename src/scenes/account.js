@@ -16,7 +16,12 @@ export default class account extends Component {
 
     this._renderRow = this._renderRow.bind(this);
     this.header = this.header.bind(this);
+    this.account_detail = this.account_detail.bind(this);
 
+  }
+
+  account_detail(valus){
+    this.props.navigator.push({name: 'account_detail', navigator: this.props.navigator,value: "test"});
   }
 
 
@@ -99,7 +104,7 @@ export default class account extends Component {
                         </Col>
                         <Col  size={90}>
                         <List dataArray={data3.list} renderRow={(data4,sectionid,rowid4,highlightrow) => 
-                        <Button style={styles.button}>
+                        <Button style={styles.button} onPress={()=> this.account_detail(data3._key)}>
                           <Row>
                             <List dataArray={data4.list} renderRow={(data5,sectionid,rowid5,highlightrow) => 
                             <Col>

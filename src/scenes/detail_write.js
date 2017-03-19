@@ -63,7 +63,8 @@ export default class detail_write extends Component {
 
             await firebase.database().ref(url + "/" + newPostKey ).set({
                 title: 'TEST영수증',
-                price: 30000
+                price: 30000,
+                image: this.props.route.value
             });
 
             
