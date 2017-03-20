@@ -97,7 +97,7 @@ export default class account extends Component {
                         <Button style={styles.button} onPress={()=> this.account_detail(data3._key)}>
                           <Row>
                         <List dataArray={data3.list} renderRow={(data4,sectionid,rowid4,highlightrow) => 
-                         
+                            
                             <Col>
                               <Text>{data4._key}</Text>
                             </Col>
