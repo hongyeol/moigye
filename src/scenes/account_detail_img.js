@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
-import { View , TextInput, StyleSheet,Text} from 'react-native';
+import { View , TextInput, StyleSheet,Text,Image} from 'react-native';
 import { Container, Content,  Header, Title, Button, Icon} from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import myTheme from '../themes/light';
 
 import * as firebase from 'firebase';
 
+const firebaseConfig = {
+  apiKey: "AIzaSyBowRFaxlpbjtalfevCE_EUMkthHZtHsC4",
+  authDomain: "moigye-f893e.firebaseapp.com",
+  databaseURL: "https://moigye-f893e.firebaseio.com",
+  storageBucket: "moigye-f893e.appspot.com",
+};
+
+
+
+firebase.initializeApp(firebaseConfig).database().ref();
+const url = firebase.storage().ref('image').child('image-02ad5f0d-8a83-42a4-a677-8f6168b2f9d2.jpg').getDownloadURL();
+
 export default class account_detail_img extends Component {
   constructor(props){
     super(props);        
 
     this.returnPop= this.returnPop.bind(this);
-
-    
+alert(firebase.storage().ref('image').child('image-02ad5f0d-8a83-42a4-a677-8f6168b2f9d2.jpg').getDownloadURL());
+    //alert(firebase.storage().ref('image').child('image-02ad5f0d-8a83-42a4-a677-8f6168b2f9d2.jpg').getDownloadURL());
   }
 
   returnPop(){
@@ -26,10 +38,12 @@ export default class account_detail_img extends Component {
                  <Button transparent onPress={this.returnPop}>
                         <Icon name='ios-arrow-back' />
                     </Button>
-
+                    
                     <Title>세부내역</Title>
                 </Header>
-                <Content style={styles.container}>
+                <Content >
+                   <Image source={{uri: 'https://firebasestorage.googleapis.com/v0/b/moigye-f893e.appspot.com/o/image%2Fimage-02ad5f0d-8a83-42a4-a677-8f6168b2f9d2.jpg?alt=media'}} 
+                   style={{width: 400, height: 200}} />
                     <Grid>
                         <Row>
                             <Col size={1}><Text>제목</Text></Col>
