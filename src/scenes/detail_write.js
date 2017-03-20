@@ -56,9 +56,14 @@ export default class detail_write extends Component {
             this.setState({disable: true});
 
             var year = new Date().getFullYear();
-            var month = new Date().getMonth();
+            var month = new Date().getMonth() + 1;
             var day = new Date().getDate();
-            var url = 'Party/'+ this.props.route.index + '/accounting/' + year  + "/" + month + "/" + day;
+
+            if(month.toString().length < 2){                
+                month = "0" + month
+            }
+
+            var url = 'Party/'+ this.props.route.index + '/accounting/' + year   + month + '/' + day;
             var newPostKey = await firebase.database().ref().child(url).push().key;          
 
             await firebase.database().ref(url + "/" + newPostKey ).set({

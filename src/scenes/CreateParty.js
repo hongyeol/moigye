@@ -48,10 +48,11 @@ export default class CreateParty extends Component {
                     BankNm: this.state.BankNm,
                     RegularPay: this.state.RegularPay,
                     ResidualPay: this.state.ResidualPay
-                })
+                });
 
                 
                 var updates = {};
+                
                 updates['/Party/' + newPostKey + '/member/' + uid] = UserName;
                 //updates['/Party/'+ newPostKey] = this.state.PartyName;
                 updates['/Register/' + uid + '/party/' + newPostKey] = this.state.PartyName;

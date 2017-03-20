@@ -12,8 +12,6 @@ export default class account_detail extends Component {
 
     this.returnPop= this.returnPop.bind(this);
 
-    url = firebase.storage().ref('image').child('image-02ad5f0d-8a83-42a4-a677-8f6168b2f9d2.jpg').getDownloadURL();
-
     alert(url);
   }
 

@@ -18,6 +18,7 @@ export default class account extends Component {
     this.header = this.header.bind(this);
     this.account_detail = this.account_detail.bind(this);
 
+    alert(new Date().getMonth().toString().length);
   }
 
   account_detail(valus){
@@ -29,7 +30,7 @@ export default class account extends Component {
         var date = new Date().getFullYear() + "" + new Date().getMonth();
         var itemsRef = await firebase.database().ref().child('Party/'+ this.props.value +'/accounting');
         
-        await itemsRef.on('value', (snap) => {
+       await itemsRef.on('value', (snap) => {
           
         // get children as an array            
             var year = [];
@@ -37,46 +38,36 @@ export default class account extends Component {
             var day = [];
 
             snap.forEach((child) => {  
-
-              child.forEach((child2) =>{
-
+              child.forEach((child2) => {
+                var list = [];
                 child2.forEach((child3) => {
-                  var list = [];
+                  var items = [];
                   child3.forEach((child4) => {
-                    var items = [];
-                    child4.forEach((child5) => {
-                      
-                      if(!child5.hasChildren()){
-                      items.push({                
-                        name: child5.val(),
-                        _key: child5.key
-                      });
-                      }
-
-                    });
-                    list.push({                
-                      _key: child4.key,
-                      list: items
-                    });
                     
+                    if(!child4.hasChildren()){
+                    items.push({                
+                      name: child4.val(),
+                      _key: child4.key
+                    });
+                    }
 
-                  })
-                  day.push({
+                  });
+                  list.push({                
                     _key: child3.key,
-                    list: list
+                    list: items
                   });
                   
-                });
-                month.push({
+
+                })
+                day.push({
                   _key: child2.key,
-                  list: day
+                  list: list
                 });
                 
               });
-
               year.push({
                 _key: child.key,
-                list: month
+                list: day
               });
             });
             this.setState({
@@ -92,7 +83,7 @@ export default class account extends Component {
             <List dataArray={data.list} renderRow={(data2,sectionid2,rowid2,highlightrow) => 
               <View>
                 <ListItem itemDivider style={{flex: 1,justifyContent: 'center' ,alignItems: 'center'}}>
-                  <Text >{data._key}년{data2._key}월</Text>
+                  <Text >{data._key.substring(0,4)}년{data._key.substring(4,6)}월</Text>
                 </ListItem>
                 <ListItem>
                 <List dataArray={data2.list} renderRow={(data3,sectionid,rowid3,highlightrow) => 
@@ -100,21 +91,20 @@ export default class account extends Component {
                       <Grid style={5}>
                         <Row>
                         <Col  size={10}>
-                          <Text>{data3._key}</Text>
-                        </Col>
+                          <Text>{data2._key}</Text>
+                        </Col>                        
                         <Col  size={90}>
-                        <List dataArray={data3.list} renderRow={(data4,sectionid,rowid4,highlightrow) => 
                         <Button style={styles.button} onPress={()=> this.account_detail(data3._key)}>
                           <Row>
-                            <List dataArray={data4.list} renderRow={(data5,sectionid,rowid5,highlightrow) => 
+                        <List dataArray={data3.list} renderRow={(data4,sectionid,rowid4,highlightrow) => 
+                         
                             <Col>
-                              <Text>{data5.name}</Text>
+                              <Text>{data4._key}</Text>
                             </Col>
-                             } />   
-                                                        
-                          </Row>
-                          </Button>   
+                           
                           } />            
+                           </Row>
+                          </Button>   
                         </Col>
                         </Row>
                         </Grid>

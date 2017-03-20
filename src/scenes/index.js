@@ -209,7 +209,6 @@ export default class index extends Component {
 
         FCM.getFCMToken().then(token => {
             console.log(token)
-            alert(token)
             // store fcm token in your server
         });
         
