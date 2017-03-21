@@ -52,6 +52,10 @@
 		B920FC0ADA46478D87D52093 /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 959279A7069440C2ABEE5E94 /* libRNFIRMessaging.a */; };
 		75F9ABD2A8594CB791760CF2 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EF1A2EDB64A4FF79B3CF798 /* libCodePush.a */; };
 		EE9DB52C9B944F03B7ECCB44 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4703EAB99E8E4FCA89C4B2AF /* libz.tbd */; };
+		AA49C79D783547758747C912 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6FA49A18F754035814849B8 /* libRNGoogleSignin.a */; };
+		667A731816284CA382026F94 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A2171446DE84247969F6115 /* SafariServices.framework */; };
+		0D32DEB8E5614FCB810EB33C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D281232E49A4412AA643FBB7 /* SystemConfiguration.framework */; };
+		F37AA49EFF3048D2ADFDB951 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F4A1336F5549BB93C01EF6 /* AddressBook.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -297,6 +301,11 @@
 		09A0EAC7F8054F009ACB4432 /* CodePush.xcodeproj */ = {isa = PBXFileReference; name = "CodePush.xcodeproj"; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		1EF1A2EDB64A4FF79B3CF798 /* libCodePush.a */ = {isa = PBXFileReference; name = "libCodePush.a"; path = "libCodePush.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		4703EAB99E8E4FCA89C4B2AF /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		7ADD25D26271470FA47D6E17 /* RNGoogleSignin.xcodeproj */ = {isa = PBXFileReference; name = "RNGoogleSignin.xcodeproj"; path = "../node_modules/react-native-google-signin/ios/RNGoogleSignin.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		F6FA49A18F754035814849B8 /* libRNGoogleSignin.a */ = {isa = PBXFileReference; name = "libRNGoogleSignin.a"; path = "libRNGoogleSignin.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		6A2171446DE84247969F6115 /* SafariServices.framework */ = {isa = PBXFileReference; name = "SafariServices.framework"; path = "System/Library/Frameworks/SafariServices.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		D281232E49A4412AA643FBB7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		94F4A1336F5549BB93C01EF6 /* AddressBook.framework */ = {isa = PBXFileReference; name = "AddressBook.framework"; path = "System/Library/Frameworks/AddressBook.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +339,10 @@
 				B920FC0ADA46478D87D52093 /* libRNFIRMessaging.a in Frameworks */,
 				75F9ABD2A8594CB791760CF2 /* libCodePush.a in Frameworks */,
 				EE9DB52C9B944F03B7ECCB44 /* libz.tbd in Frameworks */,
+				AA49C79D783547758747C912 /* libRNGoogleSignin.a in Frameworks */,
+				667A731816284CA382026F94 /* SafariServices.framework in Frameworks */,
+				0D32DEB8E5614FCB810EB33C /* SystemConfiguration.framework in Frameworks */,
+				F37AA49EFF3048D2ADFDB951 /* AddressBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +493,7 @@
 				87AE8A6F392F42D0895B8DBD /* RCTFBLogin.xcodeproj */,
 				29CD42F8BB7F48F8A491A346 /* RNFIRMessaging.xcodeproj */,
 				09A0EAC7F8054F009ACB4432 /* CodePush.xcodeproj */,
+				7ADD25D26271470FA47D6E17 /* RNGoogleSignin.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -550,6 +564,9 @@
 			isa = PBXGroup;
 			children = (
 				4703EAB99E8E4FCA89C4B2AF /* libz.tbd */,
+				6A2171446DE84247969F6115 /* SafariServices.framework */,
+				D281232E49A4412AA643FBB7 /* SystemConfiguration.framework */,
+				94F4A1336F5549BB93C01EF6 /* AddressBook.framework */,
 			);
 			name = Frameworks;
 			path = "";
@@ -972,6 +989,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -988,6 +1006,7 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/moigye.app/moigye";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

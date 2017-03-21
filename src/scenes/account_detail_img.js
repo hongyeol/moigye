@@ -28,21 +28,46 @@ export default class account_detail_img extends Component {
                     
                     <Title>세부내역</Title>
                 </Header>
-                <Content >                   
-                    <Grid>
-                        <Row>
-                            <Col size={1}><Text>제목</Text></Col>
-                            <Col size={9}><Text>11월 정기모임</Text></Col>
+                 <Content style={styles.container}>
+                    <Grid style={5 , {backgroundColor: '#FFFFFF' , marginTop: 5}}>
+                        
+                        <Row style={{flex: 1 , height: 50, alignItems: 'center'}}>
+                            <Col size={10}><Image  source='' /></Col>                            
                         </Row>
-                        <Row>
-                            <Col size={1}><Text>일시</Text></Col>
-                            <Col size={9}><Text>2017년 3월 20일</Text></Col>
+                        <Row style={{borderTopWidth: 2 ,borderTopColor: '#D5D5D5', height: 40,alignItems: 'center'}}>
+                            <Col size={10}><Text>일시</Text></Col>
+                            <Col size={90}><Text>2017년 3월 20일</Text></Col>
                         </Row>
+                        <Button style={styles.button} onPress={this.detail_img}>
                         <Row>
-                            <Col size={1}><Text>1차</Text></Col>
-                            <Col size={3}><Text>1차 이름</Text></Col>
-                            <Col size={6}><Text>21,000원</Text></Col>
+                            <Col size={10}><Text>1차</Text></Col>
+                            <Col size={30}><Text>1차 이름</Text></Col>
+                            <Col size={60}><Text>21,000원</Text></Col>
                         </Row>
+                        </Button>
+                        <Button style={styles.button} onPress={this.detail_img}>
+                        <Row>
+                            <Col size={10}><Text>1차</Text></Col>
+                            <Col size={30}><Text>1차 이름</Text></Col>
+                            <Col size={60}><Text>21,000원</Text></Col>
+                        </Row>
+                        </Button>
+                        <Row style={{borderBottomWidth: 1 ,borderBottomColor: '#D5D5D5', height: 80,alignItems: 'center'}}>
+                            <Col size={40}><Text>총지출</Text></Col>
+                            <Col size={60}><Text>42,000원</Text></Col>                            
+                        </Row>
+                        <Row style={{borderBottomWidth: 1 ,borderBottomColor: '#D5D5D5', height: 100,alignItems: 'center'}}>
+                            <Col size={15}><Text>계좌정보</Text></Col>
+                            <Col size={85}><Text>620-196217-251 외환</Text></Col>
+                        </Row>
+                        <Button style={styles.button}>
+                        <Row>
+                            <Col size={85}><Text>정산상태</Text></Col>
+                            <Col size={15}><Text>완료</Text></Col>
+                        </Row>
+                        </Button>
+                        <Button block>완료</Button>
+                        
                     </Grid>
                 </Content>
           </Container>

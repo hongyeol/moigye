@@ -4,7 +4,7 @@ import { Container, Content, List, ListItem, InputGroup, Button, Icon,Input, Tex
 import myTheme from '../themes/light';
 import * as firebase from 'firebase';
 import {FBLogin, FBLoginManager,AccessToken} from 'react-native-facebook-login';
-
+import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 
 export default class index extends Component {
     constructor(props) {
@@ -18,6 +18,7 @@ export default class index extends Component {
         auth = firebase.auth().getRedirectResult;
         this.signup = this.signup.bind(this);
         this.facebooklogin = this.facebooklogin.bind(this);
+        this._signIn = this._signIn.bind(this);
     }
 
     _logincheck(){
@@ -85,6 +86,19 @@ export default class index extends Component {
     facebooklogin(){    
         this.props.navigator.resetTo({name: "index"})
     }
+
+    _signIn() {
+        alert("tets");
+    GoogleSignin.signIn()
+    .then((user) => {
+      console.log(user);
+      this.setState({user: user});
+    })
+    .catch((err) => {
+      console.log('WRONG SIGNIN', err);
+    })
+    .done();
+  }
 
   
 
@@ -166,7 +180,8 @@ export default class index extends Component {
                     console.log("Check permissions!");
                     console.log(data);
                     }}
-                />            
+                />   
+                <GoogleSigninButton style={{width: 120, height: 44}} color={GoogleSigninButton.Color.Light} size={GoogleSigninButton.Size.Icon} onPress={() => { this._signIn(); }}/>
                 </Content>
             </Container>
         );

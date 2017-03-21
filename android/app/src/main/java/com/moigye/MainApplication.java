@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 //import com.microsoft.codepush.react.CodePush;
 //import com.microsoft.codepush.react.ReactInstanceHolder;
 import com.evollu.react.fcm.FIRMessagingPackage;
@@ -44,6 +45,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNGoogleSigninPackage(),
             //new CodePush("123456", getApplicationContext(), BuildConfig.DEBUG),
             new FIRMessagingPackage(),
             new FacebookLoginPackage(),

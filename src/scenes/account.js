@@ -15,10 +15,9 @@ export default class account extends Component {
     };
 
     this._renderRow = this._renderRow.bind(this);
-    this.header = this.header.bind(this);
     this.account_detail = this.account_detail.bind(this);
-
-    alert(new Date().getMonth().toString().length);
+    this.renderData = this.renderData.bind(this);
+    
   }
 
   account_detail(valus){
@@ -77,56 +76,59 @@ export default class account extends Component {
         }); 
     }
 
+    renderData(value){
+      if(value._key !== "image"){
+        return(<Col size={30}>
+          <Text>{value.name}</Text>
+        </Col>)
+      }else{
+        return <Text>123</Text>;
+      }
+
+    }
+
+
     _renderRow(data,sectionid,rowid,highlightrow){
       return(
-                        
-            <List dataArray={data.list} renderRow={(data2,sectionid2,rowid2,highlightrow) => 
-              <View>
-                <ListItem itemDivider style={{flex: 1,justifyContent: 'center' ,alignItems: 'center'}}>
+           <View>
+             <ListItem itemDivider style={{flex: 1,justifyContent: 'center' ,alignItems: 'center'}}>
                   <Text >{data._key.substring(0,4)}년{data._key.substring(4,6)}월</Text>
-                </ListItem>
+            </ListItem>             
+            <ListItem>
+            <List dataArray={data.list} renderRow={(data2,sectionid2,rowid2,highlightrow) => 
+              <View>                
                 <ListItem>
                 <List dataArray={data2.list} renderRow={(data3,sectionid,rowid3,highlightrow) => 
                     <ListItem>
-                      <Grid style={5}>
+                      
+                      <Grid>
                         <Row>
                         <Col  size={10}>
                           <Text>{data2._key}</Text>
                         </Col>                        
                         <Col  size={90}>
                         <Button style={styles.button} onPress={()=> this.account_detail(data3._key)}>
-                          <Row>
-                        <List dataArray={data3.list} renderRow={(data4,sectionid,rowid4,highlightrow) => 
-                            
-                            <Col>
-                              <Text>{data4._key}</Text>
-                            </Col>
-                           
+                        <List dataArray={data3.list} renderRow={(data4,sectionid,rowid4,highlightrow) =>                           
+                            {return this.renderData(data4)}                                                                              
                           } />            
-                           </Row>
                           </Button>   
                         </Col>
                         </Row>
                         </Grid>
+                        
                       </ListItem>
                 } />
                 </ListItem>
               </View>
-            } /> 
-                                                 
+            } />
+            </ListItem> 
+         </View>                                        
       )
     }
 
     componentDidMount(){
       this.listenForItems();
     }
-
-    header(){
-      <ListItem itemDivider style={{flex: 1,justifyContent: 'center' ,alignItems: 'center'}}>
-            <Text >2017년 2월</Text>
-          </ListItem>
-    }
-
      
     render() {
         return (
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor:'#EAEAEA' ,
-    width:305,
+    width:360,
     height:50,
     marginBottom: 1
   },
