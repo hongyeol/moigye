@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
-import { View , TextInput, StyleSheet,Text,Image} from 'react-native';
+import { View , TextInput, StyleSheet,Text,Image, Dimensions} from 'react-native';
 import { Container, Content,  Header, Title, Button, Icon} from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import myTheme from '../themes/light';
 import * as firebase from 'firebase';
-
+var {height, width} = Dimensions.get('window');
 
 export default class account_detail_img extends Component {
   constructor(props){
     super(props);        
 
     this.returnPop= this.returnPop.bind(this);
+    var values =  this.props.route.value.list;
+    
+    this.state={
+        imageName: ''
+    };
+    
+    values.forEach((data) => {
+            if(data._key === 'image'){
+            this.state.imageName = data.name;
+            }
+        });
+  
     
   }
 
@@ -29,11 +41,10 @@ export default class account_detail_img extends Component {
                     <Title>세부내역</Title>
                 </Header>
                  <Content style={styles.container}>
-                    <Grid style={5 , {backgroundColor: '#FFFFFF' , marginTop: 5}}>
-                        
-                        <Row style={{flex: 1 , height: 50, alignItems: 'center'}}>
-                            <Col size={10}><Image  source='' /></Col>                            
-                        </Row>
+                     <View style={{flex: 1, position: 'absolute'}}>
+                         <Image  source={{uri: 'https://firebasestorage.googleapis.com/v0/b/moigye-f893e.appspot.com/o/image%2F'+ this.state.imageName + '?alt=media'}} 
+                                                   style={{width: width, height: 150}}/></View>
+                    <Grid style={{backgroundColor: '#FFFFFF' , marginTop: 150}}>
                         <Row style={{borderTopWidth: 2 ,borderTopColor: '#D5D5D5', height: 40,alignItems: 'center'}}>
                             <Col size={10}><Text>일시</Text></Col>
                             <Col size={90}><Text>2017년 3월 20일</Text></Col>

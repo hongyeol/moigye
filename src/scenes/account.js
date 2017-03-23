@@ -20,8 +20,8 @@ export default class account extends Component {
     
   }
 
-  account_detail(valus){
-    this.props.navigator.push({name: 'account_detail', navigator: this.props.navigator,value: "test"});
+  account_detail(values){
+    this.props.navigator.push({name: 'account_detail', navigator: this.props.navigator,value: values});
   }
 
 
@@ -82,7 +82,7 @@ export default class account extends Component {
           <Text>{value.name}</Text>
         </Col>)
       }else{
-        return <Text>123</Text>;
+        return false;
       }
 
     }
@@ -107,11 +107,13 @@ export default class account extends Component {
                           <Text>{data2._key}</Text>
                         </Col>                        
                         <Col  size={90}>
-                        <Button style={styles.button} onPress={()=> this.account_detail(data3._key)}>
+                          <Row>
+                        <Button style={styles.button} onPress={()=> this.account_detail(data3)}>
                         <List dataArray={data3.list} renderRow={(data4,sectionid,rowid4,highlightrow) =>                           
                             {return this.renderData(data4)}                                                                              
                           } />            
                           </Button>   
+                          </Row>
                         </Col>
                         </Row>
                         </Grid>

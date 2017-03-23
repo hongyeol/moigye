@@ -12,6 +12,7 @@ export default class account_detail extends Component {
 
     this.returnPop= this.returnPop.bind(this);
     this.detail_img = this.detail_img.bind(this);
+
   }
 
   returnPop(){
@@ -19,7 +20,7 @@ export default class account_detail extends Component {
   }
 
   detail_img(){
-      this.props.route.navigator.push({name: 'account_detail_img',navigator: this.props.route.navigator})
+      this.props.route.navigator.push({name: 'account_detail_img',navigator: this.props.route.navigator, value: this.props.route.value})
   }
  
     render() {
@@ -33,7 +34,7 @@ export default class account_detail extends Component {
                     <Title>세부내역</Title>
                 </Header>
                 <Content style={styles.container}>
-                    <Grid style={5 , {backgroundColor: '#FFFFFF' , marginTop: 5}}>
+                    <Grid style={{backgroundColor: '#FFFFFF' , marginTop: 5}}>
                         
                         <Row style={{flex: 1 , height: 50, alignItems: 'center'}}>
                             <Col size={10}><Text>제목</Text></Col>
