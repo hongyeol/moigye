@@ -12,6 +12,7 @@ export default class account_detail extends Component {
 
     this.returnPop= this.returnPop.bind(this);
     this.detail_img = this.detail_img.bind(this);
+    this.account_state = this.account_state.bind(this);
 
   }
 
@@ -21,6 +22,10 @@ export default class account_detail extends Component {
 
   detail_img(){
       this.props.route.navigator.push({name: 'account_detail_img',navigator: this.props.route.navigator, value: this.props.route.value})
+  }
+
+  account_state(){
+      this.props.route.navigator.push({name: 'account_state',navigator: this.props.route.navigator, value: this.props.route.value})
   }
  
     render() {
@@ -38,7 +43,7 @@ export default class account_detail extends Component {
                         
                         <Row style={{flex: 1 , height: 50, alignItems: 'center'}}>
                             <Col size={10}><Text>제목</Text></Col>
-                            <Col size={90} style={{  justifyContent: 'center'}}><Text style={{fontSize: 25}}>11월 정기모임11</Text></Col>
+                            <Col size={90} style={{  justifyContent: 'center'}}><Text style={{fontSize: 25}}>11월 정기모임</Text></Col>
                         </Row>
                         <Row style={{borderTopWidth: 2 ,borderTopColor: '#D5D5D5', height: 40,alignItems: 'center'}}>
                             <Col size={10}><Text>일시</Text></Col>
@@ -66,7 +71,7 @@ export default class account_detail extends Component {
                             <Col size={15}><Text>계좌정보</Text></Col>
                             <Col size={85}><Text>620-196217-251 외환</Text></Col>
                         </Row>
-                        <Button style={styles.button}>
+                        <Button style={styles.button} onPress={this.account_state}>
                         <Row>
                             <Col size={85}><Text>정산상태</Text></Col>
                             <Col size={15}><Text>완료</Text></Col>

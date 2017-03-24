@@ -15,6 +15,7 @@ import DetailWrite from './detail_write';
 import Member from './Member';
 import Account_detail from './account_detail';
 import Account_detail_img from './account_detail_img';
+import Account_state from './account_state';
 
 import myTheme from '../themes/light';
 
@@ -44,7 +45,8 @@ var ROUTES = {
   detailwrite: DetailWrite,
   member: Member,
   account_detail: Account_detail,
-  account_detail_img: Account_detail_img
+  account_detail_img: Account_detail_img,
+  account_state: Account_state
 };
 
 

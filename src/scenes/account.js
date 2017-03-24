@@ -21,7 +21,7 @@ export default class account extends Component {
   }
 
   account_detail(values){
-    this.props.navigator.push({name: 'account_detail', navigator: this.props.navigator,value: values});
+    this.props.navigator.push({name: 'account_detail', navigator: this.props.navigator, value: values});
   }
 
 
@@ -35,6 +35,7 @@ export default class account extends Component {
             var year = [];
             var month = [];
             var day = [];
+            var member = [];
 
             snap.forEach((child) => {  
               child.forEach((child2) => {
@@ -43,12 +44,26 @@ export default class account extends Component {
                   var items = [];
                   child3.forEach((child4) => {
                     
-                    if(!child4.hasChildren()){
+                    if(child4.hasChildren()){                     
+                      child4.forEach((child5) =>{   
+                                      
+                        member.push({
+                          name: child5.val(),
+                          _key: child5.key
+                        });
+                      });
+
+                      items.push({
+                        name: member,
+                        _key: 'member'
+                      });
+
+                    }                    
                     items.push({                
                       name: child4.val(),
                       _key: child4.key
                     });
-                    }
+                    
 
                   });
                   list.push({                
@@ -77,14 +92,15 @@ export default class account extends Component {
     }
 
     renderData(value){
-      if(value._key !== "image"){
+      
+      if(value._key !== "image" && value._key !== "member"){
         return(<Col size={30}>
           <Text>{value.name}</Text>
         </Col>)
       }else{
         return false;
       }
-
+     
     }
 
 
@@ -110,7 +126,7 @@ export default class account extends Component {
                           <Row>
                         <Button style={styles.button} onPress={()=> this.account_detail(data3)}>
                         <List dataArray={data3.list} renderRow={(data4,sectionid,rowid4,highlightrow) =>                           
-                            {return this.renderData(data4)}                                                                              
+                            {return this.renderData(data4)}
                           } />            
                           </Button>   
                           </Row>
