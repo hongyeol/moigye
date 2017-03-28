@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View , TextInput, StyleSheet,Text,Image} from 'react-native';
-import { Container, Content,  Header, Title, Button, Icon} from 'native-base';
+import { Container, Content,  Header, Title, Button, Icon,Left,Body,Right} from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import myTheme from '../themes/light';
 
@@ -30,15 +30,19 @@ export default class account_detail extends Component {
  
     render() {
         return (
-          <Container theme={myTheme}>   
-             <Header>  
+          <Container >   
+             <Header style={{backgroundColor:'#FF1212' }}>
+                 <Left>  
                  <Button transparent onPress={this.returnPop}>
                         <Icon name='ios-arrow-back' />
                     </Button>
-
+                </Left>
+                <Body>
                     <Title>세부내역</Title>
+                </Body>
+                <Right />
                 </Header>
-                <Content style={styles.container}>
+                <Content >
                     <Grid style={{backgroundColor: '#FFFFFF' , marginTop: 5}}>
                         
                         <Row style={{flex: 1 , height: 50, alignItems: 'center'}}>
@@ -49,14 +53,14 @@ export default class account_detail extends Component {
                             <Col size={10}><Text>일시</Text></Col>
                             <Col size={90}><Text>2017년 3월 20일</Text></Col>
                         </Row>
-                        <Button style={styles.button} onPress={this.detail_img}>
+                        <Button light full onPress={this.detail_img}>
                         <Row>
                             <Col size={10}><Text>1차</Text></Col>
                             <Col size={30}><Text>1차 이름</Text></Col>
                             <Col size={60}><Text>21,000원</Text></Col>
                         </Row>
                         </Button>
-                        <Button style={styles.button} onPress={this.detail_img}>
+                        <Button light full onPress={this.detail_img}>
                         <Row>
                             <Col size={10}><Text>1차</Text></Col>
                             <Col size={30}><Text>1차 이름</Text></Col>
@@ -71,13 +75,13 @@ export default class account_detail extends Component {
                             <Col size={15}><Text>계좌정보</Text></Col>
                             <Col size={85}><Text>620-196217-251 외환</Text></Col>
                         </Row>
-                        <Button style={styles.button} onPress={this.account_state}>
+                        <Button light full onPress={this.account_state}>
                         <Row>
                             <Col size={85}><Text>정산상태</Text></Col>
                             <Col size={15}><Text>완료</Text></Col>
                         </Row>
                         </Button>
-                        <Button block>완료</Button>
+                        <Button light full ><Text>완료</Text></Button>
                         
                     </Grid>
                 </Content>

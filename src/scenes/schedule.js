@@ -5,8 +5,8 @@ import { Container, Content, Tabs,Card,CardItem } from 'native-base';
 export default class schedule extends Component {
     render() {
         return (
-             <Container style={styles.container}>
-        <Content padder>
+             <Container>
+        <Content>
           <Card style={{ flex: 0 }}>
             <CardItem>
               <Text>

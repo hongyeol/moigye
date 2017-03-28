@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View,Text,StyleSheet } from 'react-native';
-import { Container, Content, Tabs ,Card,CardItem,ListItem,Right,Button,List} from 'native-base';
+import { View,Text,StyleSheet,TouchableHighlight } from 'react-native';
+import { Container, Content, Tabs ,Card,CardItem,ListItem,Button,List,Left,Body,Right} from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import * as firebase from 'firebase';
 
@@ -14,13 +14,14 @@ export default class account extends Component {
       check: false
     };
 
-    this._renderRow = this._renderRow.bind(this);
-    this.account_detail = this.account_detail.bind(this);
+    this._renderRow = this._renderRow.bind(this);    
+    
     this.renderData = this.renderData.bind(this);
     
   }
 
   account_detail(values){
+    
     this.props.navigator.push({name: 'account_detail', navigator: this.props.navigator, value: values});
   }
 
@@ -35,7 +36,7 @@ export default class account extends Component {
             var year = [];
             var month = [];
             var day = [];
-            var member = [];
+            
 
             snap.forEach((child) => {  
               child.forEach((child2) => {
@@ -43,10 +44,9 @@ export default class account extends Component {
                 child2.forEach((child3) => {
                   var items = [];
                   child3.forEach((child4) => {
-                    
-                    if(child4.hasChildren()){                     
-                      child4.forEach((child5) =>{   
-                                      
+                    var member = [];
+                    if(child4.hasChildren()){
+                      child4.forEach((child5) =>{
                         member.push({
                           name: child5.val(),
                           _key: child5.key
@@ -92,12 +92,11 @@ export default class account extends Component {
         }); 
     }
 
-    renderData(value){
-      
-      if(value._key !== "image" && value._key !== "member"){
-        return(<Col size={30}>
-          <Text>{value.name}</Text>
-        </Col>)
+    renderData(value,key){      
+      if(value._key === "title" && key === "title"){
+        return <Text>{value.name}</Text>
+      }else if(value._key === "price" && key === "price"){
+        return <Text>{value.name}</Text>
       }else{
         return false;
       }
@@ -112,29 +111,24 @@ export default class account extends Component {
                   <Text >{data._key.substring(0,4)}년{data._key.substring(4,6)}월</Text>
             </ListItem>             
             <ListItem>
-            <List dataArray={data.list} renderRow={(data2,sectionid2,rowid2,highlightrow) => 
+            <List last dataArray={data.list} renderRow={(data2,sectionid2,rowid2,highlightrow) => 
               <View>                
                 <ListItem>
                 <List dataArray={data2.list} renderRow={(data3,sectionid,rowid3,highlightrow) => 
+                  
                     <ListItem>
-                      
-                      <Grid>
-                        <Row>
-                        <Col  size={10}>
-                          <Text>{data2._key}</Text>
-                        </Col>                        
-                        <Col  size={90}>
-                          <Row>
-                        <Button style={styles.button} onPress={()=> this.account_detail(data3)}>
-                        <List dataArray={data3.list} renderRow={(data4,sectionid,rowid4,highlightrow) =>                           
-                            {return this.renderData(data4)}
-                          } />            
-                          </Button>   
-                          </Row>
-                        </Col>
-                        </Row>
-                        </Grid>
                         
+                        <Text>{data2._key}</Text>
+
+                        <Button light full style={{width:200 , marginLeft: 50}} onPress={()=> this.account_detail(data3)}>
+                          <List dataArray={data3.list} renderRow={(data4,sectionid,rowid4,highlightrow) =>                           
+                              {return this.renderData(data4,'title')}
+                            } />          
+                          <List dataArray={data3.list} renderRow={(data4,sectionid,rowid4,highlightrow) =>                           
+                              {return this.renderData(data4,'price')}
+                            } />   
+                      </Button>  
+            
                       </ListItem>
                 } />
                 </ListItem>
@@ -151,7 +145,7 @@ export default class account extends Component {
      
     render() {
         return (
-        <Container style={styles.container}>
+        <Container >
         <Content >
             <List dataArray={this.state.grouplist} renderRow={this._renderRow}/>
         </Content>

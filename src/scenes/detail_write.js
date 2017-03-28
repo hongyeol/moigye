@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View,Text,ListView,StyleSheet} from 'react-native';
-import { Container, Content,ListItem,CheckBox, List,Header,Button,Icon,Title} from 'native-base';
+import { Container, Content,ListItem,CheckBox, List,Header,Button,Icon,Title,Left,Body,Right} from 'native-base';
 import * as firebase from 'firebase';
 
 import myTheme from '../themes/light';
@@ -116,10 +116,15 @@ render(){
     return(
         <Container theme={myTheme}>
             <Header>
+                <Left>
                     <Button transparent onPress={this._returnPop}>
                         <Icon name='ios-arrow-back' />
                     </Button>                    
+                </Left>
+                <Body>
                     <Title>인원설정</Title>
+                </Body>
+                <Right />
                 </Header>
                 <Content>
                     <List dataArray={this.state.dataSource} renderRow={(data,sectionid,rowid,highlightrow) =>                        
@@ -129,7 +134,7 @@ render(){
                         </ListItem>                       
                        
                     } />
-                    <Button block disabled={this.state.disable} style={styles.button} onPress={this.updateWrite.bind(this)}>정산 완료</Button>
+                    <Button Light block disabled={this.state.disable} onPress={this.updateWrite.bind(this)}><Text>정산 완료</Text></Button>
                 </Content>
             </Container>
     );

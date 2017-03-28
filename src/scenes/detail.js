@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View , TextInput, StyleSheet, Alert,ListView,Platform} from 'react-native';
-import { Container, Content, Tabs, Header, Title, Button, Icon,Fab, Drawer} from 'native-base';
+import { Container, Content, Tabs, Tab,Header, Title, Button, Icon,Fab, Drawer,Left,Body,Right} from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 import myTheme from '../themes/light';
 
@@ -176,26 +176,36 @@ uploadImage(uri, imageName, mime = 'image/jpg'){
 
     render() {
         return (
-            <Container theme={myTheme} >             
-                <Header>
+            <Container >             
+                <Header  style={{backgroundColor:'#FF1212' }} >
+                  <Left>
                     <Button transparent onPress={this._returnPop}>
                         <Icon name='ios-arrow-back' />
                     </Button>
-                    
+                   </Left>
+                   <Body> 
                     <Title>{this.props.route.index.name}</Title>
-                    
+                    </Body>
+                    <Right>
                     <Button transparent onPress={this.member}>
                         <Icon name='md-people' />
                     </Button>                    
                     <Button transparent>
                         <Icon name='md-settings' />
                     </Button>
-                </Header>
+                    </Right>
+                </Header>                
                 <Content>                
                     <Tabs>
+                      <Tab heading='정산' tabStyle={{backgroundColor:'#FF1212' }} activeTabStyle={{backgroundColor:'#FF1212' }}  textStyle={{color:'#FFFFFF' }}>
                         <Account tabLabel='정산' value={this.props.route.index._key} navigator={this.props.navigator}/>
+                      </Tab>
+                      <Tab heading='장부' tabStyle={{backgroundColor:'#FF1212' }} activeTabStyle={{backgroundColor:'#FF1212' }} textStyle={{color:'#FFFFFF' }}>
                         <Ledger tabLabel='장부' />
+                      </Tab>  
+                      <Tab heading='일정' tabStyle={{backgroundColor:'#FF1212' }} activeTabStyle={{backgroundColor:'#FF1212' }} textStyle={{color:'#FFFFFF' }}>
                         <Schedule tabLabel='일정' />
+                      </Tab>
                     </Tabs>
                 </Content>
                 <Fab
@@ -206,11 +216,11 @@ uploadImage(uri, imageName, mime = 'image/jpg'){
                         position="bottomRight"
                         onPress={this._iconSet}>
                         <Icon name={this.state.icon} />
-                        <Button style={{ backgroundColor: '#FFFFFF' }} onPress={this.selectPhotoTapped.bind(this)}>
-                            <Icon name="md-camera" style={{color: '#191919'}} />
+                        <Button  onPress={this.selectPhotoTapped.bind(this)}>
+                            <Icon name="md-camera"  />
                         </Button>
-                        <Button style={{ backgroundColor: '#FFFFFF' }} onPress={this.detail_write}>                            
-                            <Icon name="md-create" style={{color: '#191919'}}/>
+                        <Button  onPress={this.detail_write}>                            
+                            <Icon name="md-create" />
                         </Button>
                     </Fab>
                     
@@ -224,5 +234,6 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     flex: 1,
+    
   }
 })

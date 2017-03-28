@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import { View,BackAndroid,Text} from 'react-native';
-import { Container, Content, Header, Button, Icon,Title,List,ListItem} from 'native-base';
+import { View,BackAndroid,Text , StyleSheet} from 'react-native';
+import { Container, Content, Header, Button, Icon,Title,List,ListItem,Grid,Left,Right,Body,Thumbnail} from 'native-base';
 
 import * as firebase from 'firebase';
 
 import myTheme from '../themes/light';
 
+var values;
 export default class account_state extends Component{
     
     constructor(props) {
         super(props);
 
     this.state={
-        name: []
+        name: [],
+        price: 0
     };
 
         
@@ -32,19 +34,24 @@ export default class account_state extends Component{
         }
 
     })*/
-
+    values =  this.props.route.value.list;
+        
 
     }
 
     listenForItems() {
-        var values =  this.props.route.value.list;
+        var length;
+        var price;
         values.forEach((data) => {
-            if(data._key === 'member'){      
-                alert(data._key);          
+            if(data._key === 'member'){
+                length = data.name.length ;                  
                 this.setState({name: data.name});
-                //list = data.name;                
-            //this.state.imageName = data.name;
+
+            }else if(data._key === 'price'){
+                price = data.name;            
             }
+
+            this.setState({price: price / length});
         });
         
         /*
@@ -96,21 +103,49 @@ export default class account_state extends Component{
               
         return (
             <Container theme={myTheme}>
-                <Header>
+                <Header style={{backgroundColor:'#FF1212' }}>
+                    <Left>
                     <Button transparent onPress={this._returnPop.bind(this)}>
                         <Icon name='ios-arrow-back' />
                     </Button>                    
+                    </Left>
+                    <Body>
                     <Title>정산현황</Title>
+                    </Body>
+                    <Right />
                 </Header>            
                 <Content>
-                    <List dataArray={this.state.name} renderRow={(data) =>
-                        <ListItem key={data._key}>
+                    
+                    <List dataArray={this.state.name} renderRow={(data) =>                                                
+                        <ListItem key={data._key}>  
+                            <Left >
+                                <Thumbnail square size={80} source={require('../images/groupIcon.jpg')} />
+                            </Left>  
+                            <Body >  
                             <Text>{data.name}</Text>
+                            </Body>
+                            <Right >
+                            <Text>{this.state.price}</Text>                            
+                            </Right>                            
                         </ListItem>                        
+                        
                     }
-                    />                        
+                    />                     
                 </Content>
             </Container>
         );
     }
 }
+
+const styles = StyleSheet.create({
+  container: {    
+    flex: 1,
+    backgroundColor: '#D5D5D5'
+  },
+    button: {
+    backgroundColor:'#FFFFFF' ,
+    width:360,
+    height:50,
+    
+  },
+})

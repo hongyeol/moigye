@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View , TextInput, StyleSheet,Image ,BackAndroid,   Platform, Dimensions,TouchableHighlight } from 'react-native';
-import { Container, Content, Tabs, Header, Title, Button, Icon,Fab, Drawer,Text} from 'native-base';
+import { Container, Content, Tabs, Header, Title, Button, Icon,Fab, Drawer,Text,Left,Right,Body} from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { SideMenu, List, ListItem } from 'react-native-elements';
 import FCM, {FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType} from 'react-native-fcm';
@@ -305,10 +305,10 @@ export default class index extends Component {
 
 
      closeDrawer = () => {
-        this._drawer.close();
+        this._drawer._root.close();
       };
       openDrawer = () => {
-        this._drawer.open()
+        this._drawer._root.open()
         }
 
     render() {
@@ -332,20 +332,27 @@ export default class index extends Component {
                 }}
                 
             >
-            <Container theme={myTheme}>                                        
-                <Header>                  
-                    <Button transparent onPress={this.openDrawer}>                        
-                        <Icon name='md-menu' />
-                    </Button>                    
-                    <Title>모이계</Title>
-                    <Button transparent onPress={this._notice.bind(this)}>
-                        <Icon name='md-notifications' />
-                    </Button>                    
+            <Container>    
+                                                   
+                <Header style={{backgroundColor:'#FF1212' }}>
+                    <Left>                  
+                        <Button transparent onPress={this.openDrawer}>                        
+                            <Icon name='md-menu' />
+                        </Button>                    
+                    </Left>
+                    <Body>
+                        <Title>모이계</Title>
+                    </Body>
+                    <Right>
+                        <Button transparent onPress={this._notice.bind(this)}>
+                            <Icon name='md-notifications' />
+                        </Button>                    
+                    </Right>
 
                 </Header>
-                <Content style={{backgroundColor: '#F2F2F2'}}>  
+                <Content >  
                     
-                    <Grid>
+                    <Grid style={{backgroundColor: '#F2F2F2'}}>
                         <Row style={{ backgroundColor: '#FAE0D4', height:200}}>
                             <Image
                                     style={{width: width, height: 200}}
@@ -367,7 +374,7 @@ export default class index extends Component {
                         onPress={this._createparty}>
                         <Icon name={this.state.icon} />                                                
                     </Fab>
-                    
+                   
             </Container>
             </Drawer> 
         );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View , TextInput, StyleSheet} from 'react-native';
-import { Container, Content, Header, Title, Button, Icon,Text, List,ListItem,InputGroup,Input,Picker,Item} from 'native-base';
+import { Container, Content, Header, Title, Button, Icon,Text, List,ListItem,InputGroup,Input,Picker,Item,Left,Body,Right} from 'native-base';
 import myTheme from '../themes/light';
 
 import * as firebase from 'firebase';
@@ -72,12 +72,17 @@ export default class CreateParty extends Component {
 
     render() {
         return (
-            <Container theme={myTheme}>             
-                <Header>
+            <Container>             
+                <Header style={{backgroundColor:'#FF1212' }}>
+                    <Left>
                     <Button transparent onPress={this._returnPop.bind(this)}>
                         <Icon name='ios-arrow-back' />
                     </Button>                
+                    </Left>
+                    <Body>
                     <Title>모임 생성</Title>
+                    </Body>
+                    <Right />
                 </Header>
                 <Content> 
                     <List>        
@@ -118,7 +123,7 @@ export default class CreateParty extends Component {
                             </InputGroup>
                         </ListItem>  
                     </List>                    
-                    <Button block disabled={this.state.disable} style={styles.button} onPress={this.updateParty.bind(this)}>모임생성 완료</Button>
+                    <Button danger full disabled={this.state.disable} onPress={this.updateParty.bind(this)}><Text>모임생성 완료</Text></Button>
                 </Content>
             </Container>
         );        

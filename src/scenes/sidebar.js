@@ -20,12 +20,12 @@ export default class sidebar extends Component {
   
     render() {
         return (
-          <Container theme={myTheme}>   
-             <Header>                                    
+          <Container>   
+             <Header style={{backgroundColor:'#FF1212' }}>                                    
                     <Title>{this.props.name}</Title>
                 </Header>
-                <Content style={styles.container}>
-                  <Button onPress={this.logout}>로그아웃</Button>
+                <Content style={{backgroundColor:'#FFFFFF'}}>                  
+                  <Button info block onPress={this.logout}><Text >로그아웃</Text></Button>
                 </Content>
           </Container>
         );
