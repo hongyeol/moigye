@@ -10,29 +10,14 @@ export default class account_state extends Component{
     
     constructor(props) {
         super(props);
-        
-     var values =  this.props.route.value.list;
-    
+
     this.state={
-        imageName: []
+        name: []
     };
-    
-    var item = [];
-    item.push({
-        name: [1,2,3],
-        _key: '123'
-    })
-    var list = [1,2,item];
-    values.forEach((data) => {
-            if(data._key === 'member'){
-                //list = data.name;                
-            //this.state.imageName = data.name;
-            }
-        });
-        var item2 = [];
-        item2 = list[2];
+
+        
         //item
-        alert(item2.length);
+        //alert(item2.length);
         /*item2 = list[2].list;
         alert(item2.name);*/
     
@@ -51,7 +36,18 @@ export default class account_state extends Component{
 
     }
 
-    async listenForItems() {/*
+    listenForItems() {
+        var values =  this.props.route.value.list;
+        values.forEach((data) => {
+            if(data._key === 'member'){      
+                alert(data._key);          
+                this.setState({name: data.name});
+                //list = data.name;                
+            //this.state.imageName = data.name;
+            }
+        });
+        
+        /*
         var itemsList = this.props.route.value.list;
 
         var items = [];
@@ -107,7 +103,7 @@ export default class account_state extends Component{
                     <Title>정산현황</Title>
                 </Header>            
                 <Content>
-                    <List dataArray={this.state.item} renderRow={(data) =>
+                    <List dataArray={this.state.name} renderRow={(data) =>
                         <ListItem key={data._key}>
                             <Text>{data.name}</Text>
                         </ListItem>                        

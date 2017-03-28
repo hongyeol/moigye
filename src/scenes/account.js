@@ -58,11 +58,12 @@ export default class account extends Component {
                         _key: 'member'
                       });
 
-                    }                    
+                    }else{                    
                     items.push({                
                       name: child4.val(),
                       _key: child4.key
                     });
+                    }
                     
 
                   });
