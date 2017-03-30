@@ -222,6 +222,7 @@ uploadImage(uri, imageName, mime = 'image/jpg'){
                         <Button  onPress={this.detail_write}>                            
                             <Icon name="md-create" />
                         </Button>
+                        
                     </Fab>
                     
             </Container>

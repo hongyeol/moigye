@@ -45,13 +45,13 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNGoogleSigninPackage(),
-            //new CodePush("123456", getApplicationContext(), BuildConfig.DEBUG),
-            new FIRMessagingPackage(),
-            new FacebookLoginPackage(),
-            new RNFetchBlobPackage(),
             new VectorIconsPackage(),
-            new ImagePickerPackage()
+            new ImagePickerPackage(),
+            new RNGoogleSigninPackage(),
+            new RNFetchBlobPackage(),
+            new FIRMessagingPackage(),
+            new FacebookLoginPackage()
+            //new CodePush("123456", getApplicationContext(), BuildConfig.DEBUG),
       );
     }
   };

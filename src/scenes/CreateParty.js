@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View , TextInput, StyleSheet} from 'react-native';
-import { Container, Content, Header, Title, Button, Icon,Text, List,ListItem,InputGroup,Input,Picker,Item,Left,Body,Right} from 'native-base';
+import { View , TextInput, StyleSheet,Dimensions} from 'react-native';
+import { Container, Content, Header, Title, Button, Icon,Text, List,ListItem,InputGroup,Input,Picker,Item,Left,Body,Right,Form,Label} from 'native-base';
 import myTheme from '../themes/light';
 
 import * as firebase from 'firebase';
-
+var {height, width} = Dimensions.get('window');
 export default class CreateParty extends Component {
     constructor(props){
         super(props);
@@ -84,45 +84,36 @@ export default class CreateParty extends Component {
                     </Body>
                     <Right />
                 </Header>
-                <Content> 
-                    <List>        
+                <Content>                         
                         <ListItem itemDivider>
                             <Text>모임 기본 정보</Text>
                         </ListItem>         
-                        <ListItem>
-                            <InputGroup>                                
-                                <Input inlineLabel label="모임명" placeholder="이름을 입력해주세요" onChangeText={(text) => this.setState({PartyName: text})} />
-                            </InputGroup>
-                        </ListItem>                    
-                        <ListItem>
-                            <InputGroup>
-                                <Input inlineLabel label="모임소개"   onChangeText={(text) => this.setState({PartyComment: text})}/>
-                            </InputGroup>
-                        </ListItem>
+                            <Form style={{width: width}}>
+                            <Item>                            
+                                <Input placeholder="이름을 입력해주세요" onChangeText={(text) => this.setState({PartyName: text})} />
+                            </Item>                                                                  
+                            <Item >
+                                <Input placeholder="모임소개" onChangeText={(text) => this.setState({PartyComment: text})}/>
+                            </Item>
+                            </Form>
                         <ListItem itemDivider>
                             <Text>모임 계좌 정보</Text>
                         </ListItem>
-                        <ListItem>
-                            <InputGroup>                                
-                                <Input inlineLabel label="예금주" placeholder="이름" onChangeText={(text) => this.setState({BankPerson: text})} />
-                            </InputGroup>
-                        </ListItem>  
-                        <ListItem>
-                            <InputGroup>                                
-                                <Input inlineLabel label="은행/계좌번호" placeholder="번호" onChangeText={(text) => this.setState({BankNm: text})} />
-                            </InputGroup>
-                        </ListItem>  
-                        <ListItem>
-                            <InputGroup>                                
-                                <Input inlineLabel label="정기회비" placeholder="0" onChangeText={(text) => this.setState({RegularPay: text})} />
-                            </InputGroup>
-                        </ListItem>  
-                        <ListItem>
-                            <InputGroup>                                
-                                <Input inlineLabel label="잔여회비" placeholder="0" onChangeText={(text) => this.setState({ResidualPay: text})} />
-                            </InputGroup>
-                        </ListItem>  
-                    </List>                    
+
+                            <Form style={{width: width}}>
+                            <Item >
+                                <Input placeholder="이름" onChangeText={(text) => this.setState({BankPerson: text})} />
+                            </Item>                                                
+                            <Item >                           
+                                <Input placeholder="계좌번호" onChangeText={(text) => this.setState({BankNm: text})} />
+                            </Item>                                                
+                            <Item >                                
+                                <Input placeholder="0" onChangeText={(text) => this.setState({RegularPay: text})} />
+                            </Item>                                                
+                            <Item >                              
+                                <Input placeholder="0" onChangeText={(text) => this.setState({ResidualPay: text})} />
+                            </Item>
+                            </Form>                
                     <Button danger full disabled={this.state.disable} onPress={this.updateParty.bind(this)}><Text>모임생성 완료</Text></Button>
                 </Content>
             </Container>

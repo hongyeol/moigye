@@ -129,8 +129,8 @@ export default class index extends Component {
                 
                 />
                 </InputGroup>                                
-                <Button block style={styles.button} onPress={this.login.bind(this)}>로 그 인</Button>
-                <Button block  onPress={() => {this.props.navigator.push({name: 'register'})}}>회 원 가 입</Button>
+                <Button danger full onPress={this.login.bind(this)}><Text>로 그 인</Text></Button>
+                <Button danger full onPress={() => {this.props.navigator.push({name: 'register'})}}><Text>회 원 가 입</Text></Button>
                 <FBLogin
                     ref={(fbLogin) => { this.fbLogin = fbLogin }}
                     permissions={["email","user_friends"]}

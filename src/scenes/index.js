@@ -350,9 +350,9 @@ export default class index extends Component {
                     </Right>
 
                 </Header>
-                <Content >  
+                <Content style={{backgroundColor: '#F2F2F2'}}>  
                     
-                    <Grid style={{backgroundColor: '#F2F2F2'}}>
+                    <Grid>
                         <Row style={{ backgroundColor: '#FAE0D4', height:200}}>
                             <Image
                                     style={{width: width, height: 200}}
