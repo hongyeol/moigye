@@ -36,8 +36,10 @@ export default class index extends Component {
             group: [],
             loading: false,
             evennumber: false,
-            displayName: firebase.auth().currentUser.displayName            
+            displayName: null 
         }
+
+
         
         this._iconSet = this._iconSet.bind(this);
         this._detail = this._detail.bind(this);
@@ -195,7 +197,15 @@ export default class index extends Component {
 
 
 
-    componentDidMount() {        
+    componentDidMount() {
+                try{
+            this.setState({displayName: firebase.auth().currentUser.displayName});
+
+        }catch(error){
+            alert(error);
+
+        }
+                
         this.listenForItems(this.state.itemsRef);
         BackAndroid.addEventListener('hardwareBackPress', () => {
             var list =[];

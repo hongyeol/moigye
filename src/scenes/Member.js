@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View,BackAndroid,Text} from 'react-native';
-import { Container, Content, Header, Button, Icon,Title,List,ListItem} from 'native-base';
+import { Container, Content, Header, Button, Icon,Title,List,ListItem,Left, Body,Right} from 'native-base';
 
 import * as firebase from 'firebase';
 
@@ -49,11 +49,16 @@ export default class Member extends Component{
               
         return (
             <Container theme={myTheme}>
-                <Header>
+                <Header style={{backgroundColor:'#FF1212' }}>
+                    <Left>
                     <Button transparent onPress={this._returnPop.bind(this)}>
                         <Icon name='ios-arrow-back' />
                     </Button>                    
+                    </Left>
+                    <Body>
                     <Title>멤 버</Title>
+                    </Body>
+                    <Right />
                 </Header>            
                 <Content>
                     <List dataArray={this.state.item} renderRow={(data) =>

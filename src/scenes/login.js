@@ -52,9 +52,9 @@ export default class index extends Component {
         }
 
     signup() {
-
+    setTimeout(() => {        
         try {                  
-            setTimeout(() => {                
+                    
                 var uid = firebase.auth().currentUser.uid;
                 var name = firebase.auth().currentUser.displayName;                
             
@@ -65,22 +65,23 @@ export default class index extends Component {
                 this.props.navigator.push({
                             name: "index"
                         })
-            }, 1500);    
+            
             
         } catch (error) {
            setTimeout(() => {
                 var uid = firebase.auth().currentUser.uid;
                 var name = firebase.auth().currentUser.displayName;                
-            
+            /*
                 firebase.database().ref("Register/"+ uid ).set({
                     Name: name 
-                })
+                })*/
 
                 this.props.navigator.push({
                             name: "index"
                         })
-            }, 1500);  
+            }, 2000);  
         }
+        }, 2000);    
     }
 
     facebooklogin(){    
@@ -161,9 +162,8 @@ export default class index extends Component {
 
                     const provider = firebase.auth.FacebookAuthProvider;                    
                     const credential = provider.credential(data.credentials.token);
-                    firebase.auth().signInWithCredential(credential);                                                                                
-                    alert(credential)
-                              //_this.facebooklogin();
+                    firebase.auth().signInWithCredential(credential);                                                                                                    
+                    _this.facebooklogin();
                     }}
                     onLoginNotFound={function(){
                     console.log("No user logged in.");

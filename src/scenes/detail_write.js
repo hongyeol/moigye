@@ -18,13 +18,15 @@ export default class detail_write extends Component {
         
         this._returnPop = this._returnPop.bind(this);
         this.trancheck = this.trancheck.bind(this);
+
+        
     }
 
 
-    async data(){ 
-        var itemsRef = await firebase.database().ref().child('Party/'+ this.props.route.index + '/member' )
+    data(){ 
+        var itemsRef = firebase.database().ref().child('Party/'+ this.props.route.index + '/member' )
         
-        await itemsRef.on('value', (snap) => {
+        itemsRef.on('value', (snap) => {
 
         // get children as an array
             var items = [];
@@ -97,25 +99,30 @@ export default class detail_write extends Component {
 
     }
 
-    trancheck(value){
+    trancheck(value){       
+        var checked =  this.state.check;
+        checked[value] = !this.state.check[value];
         
-        this.state.check[value] = !this.state.check[value]
-
         this.setState({
+          check: checked
+        });
 
-          check: this.state.check  
-        })
     }
 
     componentDidMount() {
         this.data();
+        
+    }
+    componentDidUpdate(){        
+        //alert(this.state.check[0]);
+       
     }
 
 render(){
 
     return(
         <Container theme={myTheme}>
-            <Header>
+            <Header style={{backgroundColor:'#FF1212' }}>
                 <Left>
                     <Button transparent onPress={this._returnPop}>
                         <Icon name='ios-arrow-back' />
@@ -129,12 +136,13 @@ render(){
                 <Content>
                     <List dataArray={this.state.dataSource} renderRow={(data,sectionid,rowid,highlightrow) =>                        
                         <ListItem  button={true} onPress={() => this.trancheck(rowid)}>
-                            <CheckBox  checked={this.state.check[rowid]} onPress={() => this.trancheck(rowid)} />
+                            <CheckBox checked={this.state.check[rowid]} onPress={() => this.trancheck(rowid)} />
                                     <Text>{data.name}</Text>
                         </ListItem>                       
                        
                     } />
-                    <Button Light block disabled={this.state.disable} onPress={this.updateWrite.bind(this)}><Text>정산 완료</Text></Button>
+                    
+                    <Button Light block disabled={this.state.disable} onPress={this.updateWrite.bind(this)}><Text>{this.state.check[0]}</Text></Button>
                 </Content>
             </Container>
     );

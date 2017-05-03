@@ -27,7 +27,7 @@ export default class LodingPage extends Component {
             }else{
                 this.props.navigator.push({name: "introduce" })
             }
-        }, 1500); 
+        }, 2500); 
     }
 
 render() {

@@ -69,6 +69,7 @@ export default class Main extends Component{
             // store fcm token in your server
         });
         
+        
         this.notificationListener = FCM.on(FCMEvent.Notification, async (notif) => {
             // there are two parts of notif. notif.notification contains the notification payload, notif.data contains data payload
             if(notif.local_notification){
@@ -158,7 +159,7 @@ export default class Main extends Component{
         FCM.cancelAllLocalNotifications()
         FCM.cancelLocalNotification("UNIQ_ID_STRING")
 
-        FCM.setBadgeNumber(1);                                       // iOS only and there's no way to set it in Android, yet.
+        FCM.setBadgeNumber(99);                                       // iOS only and there's no way to set it in Android, yet.
         FCM.getBadgeNumber().then(number=>console.log(number));     // iOS only and there's no way to get it in Android, yet.
         FCM.send('866522507212', {
           my_custom_data_1: 'my_custom_field_value_1',
