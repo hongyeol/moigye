@@ -18,12 +18,11 @@ export default class detail_write extends Component {
         
         this._returnPop = this._returnPop.bind(this);
         this.trancheck = this.trancheck.bind(this);
-
-        
+    
     }
 
 
-    data(){ 
+    data(gubun, rowid){ 
         var itemsRef = firebase.database().ref().child('Party/'+ this.props.route.index + '/member' )
         
         itemsRef.on('value', (snap) => {
@@ -31,18 +30,30 @@ export default class detail_write extends Component {
         // get children as an array
             var items = [];
             var check = [];
-            var num=0;
+            var num=1;
+            items.push({                
+                name: '전체',
+                _key: -1
+                
+            });
+            
+
             snap.forEach((child) => {
                 items.push({                
                 name: child.val(),
                 _key: child.key
                 
             });
-            check[num] = true;
+            if(gubun==1){
+                check[0] = false;
+                check[num] = false;
+            }else{
+                check[0] = this.state.check[0]
+                check[num] = this.state.check[num]
+            }
             num++;
         });
-        
-        
+    
             this.setState({
                 dataSource: items,
                 check: check
@@ -67,18 +78,26 @@ export default class detail_write extends Component {
 
             var url = 'Party/'+ this.props.route.index + '/accounting/' + year   + month + '/' + day;
             var newPostKey = await firebase.database().ref().child(url).push().key;          
-
-            await firebase.database().ref(url + "/" + newPostKey ).set({
-                title: 'TEST영수증',
-                price: 30000,
-                image: this.props.route.value
-            });
-
+            
+            if (this.props.route.gubun === 'Photo'){
+                await firebase.database().ref(url + "/" + newPostKey ).set({
+                    title: 'TEST영수증',
+                    price: 30000,
+                    image: this.props.route.value
+                });
+            }else{
+                await firebase.database().ref(url + "/" + newPostKey ).set({
+                    title: 'TEST영수증',
+                    price: 30000
+                });
+            }
             
             var memberlist = {};
             this.state.dataSource.map((index, value) => {
+                if(index != 0){
                 if(this.state.check[value]){
                     memberlist[url + "/" + newPostKey + "/member/" + this.state.dataSource[value]._key] = this.state.dataSource[value].name;
+                }
                 }
                 
             });
@@ -99,18 +118,29 @@ export default class detail_write extends Component {
 
     }
 
-    trancheck(value){       
+    trancheck(index){
         var checked =  this.state.check;
-        checked[value] = !this.state.check[value];
+
+        if(index == 0){            
+            this.state.check.map((value,index2) =>{
+                checked[index2] = !this.state.check[index2];
+            })            
+        }else{
+
+        checked[index] = !this.state.check[index];
+        }
         
         this.setState({
-          check: checked
+          check: checked,          
         });
 
+        this.data(2,index);
+        
+        
     }
 
     componentDidMount() {
-        this.data();
+        this.data(1,0);
         
     }
     componentDidUpdate(){        
@@ -134,15 +164,13 @@ render(){
                 <Right />
                 </Header>
                 <Content>
-                    <List dataArray={this.state.dataSource} renderRow={(data,sectionid,rowid,highlightrow) =>                        
+                    <List dataArray={this.state.dataSource} renderRow={(data,sectionid,rowid,highlightrow) =>
                         <ListItem  button={true} onPress={() => this.trancheck(rowid)}>
                             <CheckBox checked={this.state.check[rowid]} onPress={() => this.trancheck(rowid)} />
                                     <Text>{data.name}</Text>
-                        </ListItem>                       
-                       
-                    } />
-                    
-                    <Button Light block disabled={this.state.disable} onPress={this.updateWrite.bind(this)}><Text>{this.state.check[0]}</Text></Button>
+                        </ListItem>
+                        } />
+                    <Button block danger disabled={this.state.disable} onPress={this.updateWrite.bind(this)}><Text>정산</Text></Button>
                 </Content>
             </Container>
     );

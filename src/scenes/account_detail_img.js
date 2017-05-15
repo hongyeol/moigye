@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View , TextInput, StyleSheet,Text,Image, Dimensions} from 'react-native';
+import { View , TextInput, StyleSheet,Text,Image, Dimensions,TouchableHighlight} from 'react-native';
 import { Container, Content,  Header, Title, Button, Icon,Left,Body,Right} from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import myTheme from '../themes/light';
@@ -11,10 +11,12 @@ export default class account_detail_img extends Component {
     super(props);        
 
     this.returnPop= this.returnPop.bind(this);
+
     var values =  this.props.route.value.list;
     
     this.state={
-        imageName: ''
+        imageName: '',
+        expand: false
     };
     
     values.forEach((data) => {
@@ -31,6 +33,8 @@ export default class account_detail_img extends Component {
   }
  
     render() {
+
+        if(this.state.expand === false){
         return (
           <Container theme={myTheme}>   
              <Header style={{backgroundColor:'#FF1212' }}>  
@@ -45,9 +49,9 @@ export default class account_detail_img extends Component {
                     <Right />
                 </Header>
                  <Content >
-                     <View style={{flex: 1, position: 'absolute'}}>
+                     <TouchableHighlight style={{flex: 1, position: 'absolute'}} onPress={() => {this.setState({expand: true})}}>
                          <Image  source={{uri: 'https://firebasestorage.googleapis.com/v0/b/moigye-f893e.appspot.com/o/image%2F'+ this.state.imageName + '?alt=media'}} 
-                                                   style={{width: width, height: 150}}/></View>
+                                                   style={{width: width, height: 150}}/></TouchableHighlight>
                     <Grid style={{backgroundColor: '#FFFFFF' , marginTop: 150}}>
                         <Row style={{borderTopWidth: 2 ,borderTopColor: '#D5D5D5', height: 40,alignItems: 'center'}}>
                             <Col size={10}><Text>이름</Text></Col>
@@ -66,10 +70,15 @@ export default class account_detail_img extends Component {
                             <Col size={85}><Text></Text></Col>
                         </Row>
   
-                    </Grid>
+                    </Grid>                    
                 </Content>
           </Container>
         );
+        }else{
+        return (<TouchableHighlight style={{flex: 2, position: 'absolute'}} onPress={() => {this.setState({expand: false})}}>
+                         <Image  source={{uri: 'https://firebasestorage.googleapis.com/v0/b/moigye-f893e.appspot.com/o/image%2F'+ this.state.imageName + '?alt=media'}} 
+                                                   style={{width: width, height: height}}/></TouchableHighlight>)
+        }
     }
 }
 const styles = StyleSheet.create({

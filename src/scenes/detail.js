@@ -22,8 +22,8 @@ export default class detail extends Component {
         super(props);
         
         this.state = {
-            active: false,
-            icon: 'md-add',
+            active: true,
+            icon: 'md-close',
             imageUrl: '',
             dataSource: new ListView.DataSource({
             rowHasChanged: (row1, row2) => row1 !== row2,
@@ -46,7 +46,7 @@ export default class detail extends Component {
     }
 
     detail_write(values){
-      this.props.navigator.push({name: 'detailwrite' ,index: this.props.route.index._key, value: values});
+      this.props.navigator.push({name: 'detailwrite' ,index: this.props.route.index._key, value: values, gubun: 'Photo'});
     }
 
     member(){
@@ -167,7 +167,7 @@ uploadImage(uri, imageName, mime = 'image/jpg'){
       .then((url) => {
         resolve(url)
       })
-      .catch((error) => {
+      .catch((error) => {1
         reject(error)
       })
   })

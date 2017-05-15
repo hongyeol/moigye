@@ -55,16 +55,39 @@ export default class Main extends Component{
   constructor() {
       super();
       this.otherMethods = this.otherMethods.bind(this);
+      this.updateParty = this.updateParty.bind(this);
   }
 
   static propTypes = {
     UserName: React.PropTypes.string
   }
 
+    async updateParty(token){
+      try {          
+          var uid = await firebase.auth().currentUser.uid;
+          var UserName = "";/*
+          await firebase.database().ref().child('Register/'+ uid).on('value', (snap) => {
+              UserName = snap.val().Name;
+          });
+          */
+
+          var updates;              
+          updates['/Register/' + uid + '/Token'] = UserName;
+                
+          await firebase.database().ref().update(updates);
+
+      }catch(error){
+          alert(error);
+      }  
+  }
+
+
+
 
     componentDidMount() {
         FCM.getFCMToken().then(token => {
-            console.log(token)
+            //alert("first token" + token);
+            //this.updateParty(token);
             
             // store fcm token in your server
         });
@@ -101,7 +124,7 @@ export default class Main extends Component{
             }
         });
         this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, (token) => {
-            console.log(token)
+            alert(token)
             
             // fcm token may not be available on first load, catch it here
         });
@@ -116,6 +139,7 @@ export default class Main extends Component{
     otherMethods(){
 
         FCM.subscribeToTopic('/topics/moigye');
+        FCM.unsubscribeFromTopic('/topics/foo-bar');
         
         FCM.getInitialNotification().then(notif=>console.log(notif));
         FCM.presentLocalNotification({

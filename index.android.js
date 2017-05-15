@@ -6,7 +6,6 @@
 
 import React, { Component } from 'react';
 import { AppRegistry,Image } from 'react-native';
-import * as firebase from 'firebase';
 import Main from './src/scenes/main';
 
 

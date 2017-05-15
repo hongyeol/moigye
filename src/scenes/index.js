@@ -18,15 +18,16 @@ import SideBar from './sidebar';
 
 import ViewPager from 'react-native-viewpager';
 
-const Blob = RNFetchBlob.polyfill.Blob
-const fs = RNFetchBlob.fs
-window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
-window.Blob = Blob
-
+const Blob = RNFetchBlob.polyfill.Blob;
+const fs = RNFetchBlob.fs;
+const API_URL = "https://fcm.googleapis.com/fcm/send";
+const api_key = "";
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+window.Blob = Blob;
 
 var {height, width} = Dimensions.get('window');
 
-export default class index extends Component {    
+export default class index extends Component {
     constructor(){
         super();
         this.state={
@@ -51,6 +52,9 @@ export default class index extends Component {
         this.RowWrite = this.RowWrite.bind(this);
 
         this._createparty = this._createparty.bind(this);
+
+
+        this.UpdateToken = this.UpdateToken.bind(this);
 
 
     }
@@ -195,6 +199,17 @@ export default class index extends Component {
     }
   }
 
+    async UpdateToken(token){
+      try {          
+          var uid = await firebase.auth().currentUser.uid;
+
+          var updates = {};              
+          updates['/Register/' + uid + '/Token'] = token;        
+          await firebase.database().ref().update(updates);
+      }catch(error){
+          alert(error);
+      }  
+  }
 
 
     componentDidMount() {
@@ -218,7 +233,8 @@ export default class index extends Component {
     });
 
         FCM.getFCMToken().then(token => {
-            console.log(token)
+            alert(token)
+            this.UpdateToken(token);
             // store fcm token in your server
         });
         
@@ -375,6 +391,7 @@ export default class index extends Component {
                         })}                    
                     </Grid>                                        
                 </Content>
+                <Button onPress={this.otherMethods}></Button>
                  <Fab
                         active={this.state.active}
                         direction="up"
@@ -387,10 +404,8 @@ export default class index extends Component {
                    
             </Container>
             </Drawer> 
-        );
-        
+        );   
     }
-    
 }
 const styles = StyleSheet.create({
   container: {
